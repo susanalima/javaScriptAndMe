@@ -3,4 +3,7 @@ collect/input
 collect/*/node_modules
 collect/*/package-lock.json
 collect/logs
+process/output
+process/input
+process/logs
 
