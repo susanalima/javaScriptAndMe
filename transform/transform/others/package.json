@@ -1,0 +1,32 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ctph.js": "0.0.5",
+    "escodegen": "^2.0.0",
+    "esmangle": "^1.0.1",
+    "esprima": "^4.0.1",
+    "babel-minify": "^0.5.1",
+    "defendjs": "git+https://github.com/alexhorn/defendjs.git",
+    "fs-extra": "^9.1.0",
+    "gnirts": "^1.1.7",
+    "google-closure-compiler": "^20210202.0.0",
+    "javascript-obfuscator": "^2.10.3",
+    "jfogs": "^1.0.0-alpha.5",
+    "js-obfuscator": "^0.1.4",
+    "jsfuck": "git+https://github.com/aemkei/jsfuck.git",
+    "node-obf": "0.0.1",
+    "strip-comments": "^2.0.1",
+    "terser": "^5.6.0-beta",
+    "uglify-js": "^3.12.6",
+    "uuid": "^8.3.2",
+    "yuicompressor": "^2.4.8"
+  }
+}

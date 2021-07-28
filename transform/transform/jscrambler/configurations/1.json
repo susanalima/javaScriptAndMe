@@ -1,0 +1,49 @@
+{
+    "params": [
+      {
+        "options": {},
+        "name": "whitespaceRemoval"
+      },
+      {
+        "name": "booleanToAnything"
+      },
+      {
+        "name": "stringSplitting",
+        "options": {
+          "chunks": [
+            2,
+            4
+          ]
+        }
+      },
+      {
+        "name": "numberToString",
+        "options": {}
+      },
+      {
+        "name": "identifiersRenaming",
+        "options": {
+          "mode": "SAFEST"
+        }
+      },
+      {
+        "name": "variableMasking",
+        "options": {
+          "options": []
+        }
+      },
+      {
+        "name": "functionOutlining",
+        "options": {
+          "features": []
+        }
+      }
+    ],
+    "areSubscribersOrdered": false,
+    "useRecommendedOrder": true,
+    "jscramblerVersion": "7.0",
+    "tolerateMinification": true,
+    "profilingDataMode": "off",
+    "useAppClassification": true,
+    "browsers": {}
+  }

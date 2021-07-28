@@ -1,0 +1,9 @@
+{
+    "keepLinefeeds":      false,
+    "keepIndentations":   false,
+    "encodeStrings":      false,
+    "encodeNumbers":      false,
+    "moveStrings":        true,
+    "replaceNames":       true,
+    "variableExclusions": [ "^_get_", "^_set_", "^_mtd_" ]
+  }
