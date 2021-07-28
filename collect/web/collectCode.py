@@ -84,7 +84,6 @@ def scrap_web(number_urls, start_at):
         if failCount > 10:
             print("Failed too much")
             break
-        #get_url_javascript(url)
         response = True
         try:
             driver = utils.setup_driver()
