@@ -70,7 +70,7 @@ function process_files(filesToProcess, hashFiles, threshold, processedFiles){
  * @param {*} hashFiles List containing the hash values for the processed files
  * @param {*} processedDirs List containing the directories previously processed
  */
-function get_files_to_process(directory, filesToProcess, processedDirs,processedFiles){
+function get_files_to_process(directory, filesToProcess, processedDirs, processedFiles){
 
     if(processedDirs.includes(directory))
         return 
@@ -126,8 +126,6 @@ function process_exec(index, filesToProcess, step, timeout) {
  * The files are stored in folders of MAX_FILES_PER_DIR (3000) files
  */
 function filter(directory, folder, processedFiles, step=5){
-
-
     const processedDirs = Utils.get_processed_dirs();
     const dir = directory + folder
     let filesToProcess = []

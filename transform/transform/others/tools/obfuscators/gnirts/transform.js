@@ -86,7 +86,6 @@ function transform(input, configFile,  fileId, suffix, outputDir, fileSize) {
     try {
         const processedInput = pre_process_string(input, fileSize);
         const output = gnirts.mangle(processedInput);
-        //console.log(output)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         Utils.store(fileDir, output); 
         console.log(fileDir)

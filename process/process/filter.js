@@ -26,15 +26,12 @@ function filter(input, absolute){
         const hash = Utils.compute_hash(fileName, input, Utils.esprima_minify)
         const logData =  absolute + " - " + hash + "\n"
         Utils.write_to_pre_log_file(logData)
-        //console.log(absolute + " - " + hash)
     } catch (error) {
         const logData = Utils.build_logs_log_data_on_failure(absolute, "unknown", "unknown", error);
         Utils.write_to_logs_log_file(logData)  
         return
     }     
 }
-
-
 
 
 

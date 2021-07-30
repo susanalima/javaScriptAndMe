@@ -2,12 +2,6 @@ const ClosureCompiler = require('google-closure-compiler').compiler
 
 const Utils = require("../../../utils")
 
-/**
- * Suffix to label the file as transformed by Google Closure Compiler
- */
-//const suffix = Utils.globals.GOOGLE_CLOSURE_COMPILER
-
-
  /**
  * Minify a given code snippet with the Google Closure Compiler minifier. Stores the ouput in another file.
  * @param {*} inputFile File with the code to be transformed

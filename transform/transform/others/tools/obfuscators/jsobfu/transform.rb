@@ -21,7 +21,6 @@ def transform(inputFile, configFile)
   iterations = hash['iterations']
   begin
     output = JSObfu.new(input).obfuscate(iterations:iterations)
-    #STDOUT.puts output
     outputDir = "./output/obfuscated/jsobfu/"
     fileId = File.basename(inputFile, '.js')
     configId = File.basename(configFile, '.json')

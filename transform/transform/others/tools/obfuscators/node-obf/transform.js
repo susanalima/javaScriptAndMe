@@ -15,10 +15,8 @@ const GLOB = "$$"
 function transform(input, configFile, fileId, suffix, outputDir){
     try {
         const output =  obf.obfuscate(GLOB, input);
-        //console.log(output)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         Utils.store(fileDir, output);
-        console.log(fileDir)
     } catch (error) {
         console.error(error)
     }

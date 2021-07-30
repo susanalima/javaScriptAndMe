@@ -8,9 +8,6 @@ const { exec } = require('child_process');
 const Defendjs = require('./tools/obfuscators/defendjs/transform');
 
 
-
-
-
 /**
  * Return list of all the files that were previously transformed
  */
@@ -70,18 +67,6 @@ function get_files_to_transform(directory, transformedFiles, filesToTransform){
  * @param {*} output Output of the transformation
  */
 function transformation_successful_callback(fileId, outputDir, suffix, configFile, output){
-    //if (suffix !== Utils.globals.GOOGLE_CLOSURE_COMPILER){
-    //    const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
-    //    Utils.store(fileDir, output); 
-    //}
-    //if (suffix !== Utils.globals.GOOGLE_CLOSURE_COMPILER){
-    //    const stats = fs.statSync(output)
-    //    const fileSize = stats.size / Utils.globals.BYTE_TO_KILOBYTE
-    //}
-    //else {
-    //    fileSize = "unknown"
-    //}
-    
     const logData = Utils.build_log_data_on_success(fileId, "unknown");
     Utils.write_to_log_file(suffix, logData, configFile);
 }
@@ -211,21 +196,6 @@ const args = process.argv.slice(2);
 const suffix = args[0]
 const configFile = args[1]
 transform_input(Utils.globals.TRANSFORM_INPUT_DIR, suffix, configFile, 5)
-//transform_input(Utils.globals.TRANSFORM_INPUT_DIR + "regular_code_final_process/", suffix, configFile, 1)
 
-
-//fs.readdirSync("./output/obfuscated/jsobfu").forEach(file => {
-//    const absolute = path.join("./output/obfuscated/jsobfu/", file);
-//    fileId = path.basename(absolute, ".js")
-//    fileName = "output/obfuscated/jsobfu/" + fileId.slice(0,-1) + "jsobfu" + "_" + 1 + ".js"
-//    console.log(fileName)
-//    console.log(absolute)
-//    
-//    fs.rename(absolute, fileName, function (err) {
-//        if (err) throw err;
-//        console.log('File Renamed.');
-//      });
-//});
-//
 
 

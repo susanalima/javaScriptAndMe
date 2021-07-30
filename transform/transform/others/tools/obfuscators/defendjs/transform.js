@@ -45,8 +45,6 @@ function copy_file_to_local_input(fileToTransform){
 }
 
 
-
-
 /**
  * Transform each file individually with all specified configurations
  * - copy file to local input directory

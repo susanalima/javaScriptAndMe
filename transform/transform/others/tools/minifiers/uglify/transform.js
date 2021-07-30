@@ -11,7 +11,6 @@ function transform(input, configFile, fileId, suffix, outputDir) {
     const output = UglifyJS.minify(input);
     const error = output.error;
     if (error === undefined) {
-        //console.log(output.code)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         Utils.store(fileDir, output.code);
         console.log(fileDir)

@@ -174,24 +174,6 @@ function get_processed_dirs(){
     return Math.max(...dirs) + 1
 }
 
-/**
- * Get number of words in a string
- * @param {*} input String
- */
-function get_number_words(input){
-    const regex = /[\w-]+/g;
-    return (input.match(regex) || []).length;
-}
-
-
-/**
- * Get number of control flow related words in a string (switch, case, break, continue)
- * @param {*} input String
- */
-function get_number_controlflow_keywords(input){
-    const regex = /([^_a-zA-Z0-9\'])(switch|case|break|continue)([^_a-zA-Z0-9\'])/g;
-    return (input.match(regex) || []).length;
-}
 
 
 /**
@@ -231,11 +213,9 @@ function check_transformed(fileName, input, linesThreshold=240){
     }
     const nrC = input.length
     const nrIndentationC = get_number_indentation_characters(input)
-
-    // if there are less than 1% of indentation characters
-
     const indentCharPercentage = nrIndentationC / nrC * 100
 
+    // if there are less than 1% of indentation characters
     if (nrIndentationC / nrC * 100 <= 1)
         throw new Error(`File may be minified or obfuscated: ${Math.round(indentCharPercentage*100)/100}% of indentation characters (less or equal to 1%)`)    
     
@@ -283,7 +263,6 @@ function esprima_minify(input) {
     } catch (error) {
         throw new Error(error)
     }
-    //const optimized = Esmangle.optimize(tree, null);
     const result = Esmangle.mangle(tree);
     const output = Escodegen.generate(result, {
         format: {

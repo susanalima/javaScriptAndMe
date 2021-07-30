@@ -1,7 +1,6 @@
 const jfogs = require('jfogs');
 const fs = require("fs");
 const Utils = require("../../../utils")
-const Ctph = require('ctph.js');
 
 
  /**
@@ -12,14 +11,6 @@ const Ctph = require('ctph.js');
 function transform(input, configFile, fileId, suffix, outputDir) {
     try {
         const output = jfogs.obfuscate(input);
-        const hashOutput = Ctph.digest(output)
-        const hashInput = Ctph.digest(input)
-        const score = Ctph.similarity(hashOutput, hashInput)
-        if(score > 40){
-            console.error("Error: Too similar to the original file! score: " + score + "\n")
-            return
-        }
-        //console.log(output)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         Utils.store(fileDir, output); 
         console.log(fileDir)

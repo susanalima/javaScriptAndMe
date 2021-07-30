@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup as bs
-import re
 import time
 import utils
 
@@ -19,6 +18,7 @@ def get_urls_page(page, driver):
 
     # get the HTML content
     html = driver.page_source
+
     #parse HTML using beautiful soup
     soup = bs(html, "html.parser")
 

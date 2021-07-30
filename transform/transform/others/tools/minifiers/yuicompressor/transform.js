@@ -17,7 +17,6 @@ async function transform(input, configFile, fileId, suffix, outputDir) {
     }
     await compressor.compress(input, options, function(error, data, extra) {
         if(error === null){
-            //console.log(data)
             const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
             Utils.store(fileDir, data);
             console.log(fileDir)

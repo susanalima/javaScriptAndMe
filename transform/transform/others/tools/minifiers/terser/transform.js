@@ -12,7 +12,6 @@ async function transform(input, configFile, fileId, suffix, outputDir) {
     try {
         const result = await minify(input);
         const output = result.code;
-        //console.log(output)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         Utils.store(fileDir, output);
         console.log(fileDir)
