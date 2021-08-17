@@ -25,6 +25,7 @@
     "COLLECT_GITHUB_REPOS_TO_CLONE_SERVER_FILE": "./input/reposToCloneServer.txt",
     "COLLECT_GITHUB_OUTPUT_DIR": "./output/github/",
     "COLLECT_GITHUB_LOG_FILE_DIR": "./logs/github/logs.txt",
-    "LOG_HEADER": "LOG"
+    "LOG_HEADER": "LOG",
+    "LOG_TAIL": "ENDLOG"
 
 }

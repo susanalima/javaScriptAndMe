@@ -16,11 +16,15 @@
 
 1. Run code
 2. Add run help / usage 
-3. Add source to filename
 4. Refactor hardcoded names
 5. Check clean and init scripts
 6. Check when program re-run (should start from where it stopped) -> collectSources and collectCode
 7. Check Logs
+
+
+* npm : done
+* github : todo
+* web : todo
 
 ### Process
 
@@ -32,6 +36,7 @@
 6. Check when program re-run (should start from where it stopped)
 7. Refactor process.filter
 8. Check Logs
+3. Add source to filename
 
 ### Transform
 

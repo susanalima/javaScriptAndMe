@@ -22,6 +22,8 @@
     `sudo ./scripts/init.sh`
   
 
+5. change docker path name in run script
+
 ## BUILD and RUN
 
 ### GITHUB
