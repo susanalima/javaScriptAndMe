@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup as bs
 import time
 import utils
+import os
 
 globals_ = utils.load_globals()
 
 
-def get_urls_page(page, driver):
+def get_urls_page(page, numberUrls, index, driver):
     url = "https://de.majestic.com/reports/majestic-million?s=" + str(page)
     try:
         driver.get(url)
@@ -25,23 +26,55 @@ def get_urls_page(page, driver):
     tableLines = soup.find_all("tr", {"class": "odd"})
     tableLines.extend(soup.find_all("tr", {"class": "even"}))
 
+    outputFile = globals_['COLLECT_WEB_URLS_TO_VISIT_FILE']
+
+    if not os.path.exists(outputFile):
+        f = open(outputFile,"w+")
+
+    count = 0
+    pos = 0
+
     for line in tableLines:
-        target = line.find_all("td")[2].find("a").text
-        target = "http://" + str(target)  + "\n"
-        utils.write_to_file(globals_['COLLECT_WEB_URLS_TO_VISIT_FILE'], target, globals_['APPEND_WRT_MODE'])
+        if count >= numberUrls:
+            return count
+        if pos < index:
+            pos += 1
+        else:
+            target = line.find_all("td")[2].find("a").text
+            target = "http://" + str(target)  + "\n"
+            utils.write_to_file(outputFile, target, globals_['APPEND_WRT_MODE'])
+            count += 1
+            pos += 1
+  
+    
+    return count
 
 
 
-def get_sources(number_urls): 
+def get_sources(number_urls, start_at = 1): 
     
     urlsPerPage = 100
-    numberPages = int(number_urls/urlsPerPage)
+
+    start_at -= 1
+
+    numberPages = int((number_urls  + start_at)/urlsPerPage) + 1
+
+    print(numberPages)
 
     driver = utils.setup_driver()
 
     page = 0
-    for _ in range(numberPages):
-        get_urls_page(page, driver)
+
+    count = 0
+
+    startC = int(start_at/urlsPerPage) 
+
+    index = start_at - urlsPerPage * startC
+
+
+    for c in range(numberPages):
+        if c >= startC:
+            count += get_urls_page(page, number_urls - count, index, driver)
         page += urlsPerPage
 
     driver.quit()

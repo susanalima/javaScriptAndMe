@@ -17,7 +17,7 @@
 1. Run code
 2. Add run help / usage 
 4. Refactor hardcoded names
-5. Check clean and init scripts
+5. Check clean and init scripts 
 6. Check when program re-run (should start from where it stopped) -> collectSources and collectCode
 7. Check Logs
 

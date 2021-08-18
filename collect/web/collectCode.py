@@ -49,7 +49,6 @@ def get_url_javascript(url, driver, response):
                         extension = ".min.js"
                     outputFileDir = outputDir + globals_['DIR_SEPARATOR'] + urlName + globals_['DEFAULT_SEPARATOR'] + str(scriptNr) + globals_['DEFAULT_SEPARATOR'] + "ref" + extension
                     utils.download_url_javascript(ref, outputFileDir)
-                    #utils.write_to_references_file(ref)
                 else:
                     outputFileDir = outputDir + globals_['DIR_SEPARATOR'] + urlName + globals_['DEFAULT_SEPARATOR'] + str(scriptNr) + globals_['DEFAULT_SEPARATOR'] + "inline" + extension 
                     utils.write_to_file(outputFileDir, script.string)
@@ -119,4 +118,4 @@ if __name__ == '__main__':
         scrap_web(number_urls, start_at)
 
     if(args.collect_option == "sources"):
-        get_sources(number_urls )
+        get_sources(number_urls, start_at)

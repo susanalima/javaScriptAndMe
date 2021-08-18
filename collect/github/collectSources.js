@@ -125,17 +125,26 @@ const vanillaJSQ = '"vanilla javascript"+language:JavaScript%26sort=stars%26orde
 const serverJSQ = '"server-side"+language:JavaScript%26sort=stars%26order=desc'
 
 let q = chromeExtensionsQ
-let filename = globals.COLLECT_GITHUB_REPOS_TO_CLONE_EXTENSIONS_FILE
 
-if(source === "vanilla"){
+
+
+let filename = ""
+
+if(source === "extensions"){
+    q = chromeExtensionsQ
+    filename = globals.COLLECT_GITHUB_REPOS_TO_CLONE_EXTENSIONS_FILE
+}
+else if(source === "vanilla"){
     q = vanillaJSQ
     filename = globals.COLLECT_GITHUB_REPOS_TO_CLONE_VANILLA_FILE
 }
-if(source === "server"){
+else if(source === "server"){
     q = serverJSQ
     filename = globals.COLLECT_GITHUB_REPOS_TO_CLONE_SERVER_FILE
 }
-getRepositoriesToClone(numberRepos, PER_PAGE, q, filename)
+
+if(filename !== "")
+    getRepositoriesToClone(numberRepos, PER_PAGE, q, filename)
 
 
 

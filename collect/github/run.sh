@@ -5,7 +5,7 @@ NUMBER_REPOS=${2:-"1000"}
 SOURCE=${3:-"extensions"}
 
 FOLDER="collect"
-MOUNT_FOLDER="/home/susana/Documents/tese/automatic-identification-of-obfuscated-javascript-using-machine-learning/$FOLDER"
+MOUNT_FOLDER="/home/susana/Documents/dataset-tool/$FOLDER"
 INPUT="$MOUNT_FOLDER/input"
 LOGS="$MOUNT_FOLDER/logs"
 OUTPUT="$MOUNT_FOLDER/output"
