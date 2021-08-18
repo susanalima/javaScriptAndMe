@@ -2,8 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const Utils = require("./utils")
 
-const globals = Utils.globals
-
 
 /**
  * Store all suitable files in given directory in a list and filter the remaining files
@@ -13,13 +11,10 @@ const globals = Utils.globals
  * * it is complex enough
  * * it can be parsed
  * If the directry was previously processed it is not processed again.
- * @param {*} directory Given directory
- * @param {*} filesToProcess List containing all the files to be processed
- * @param {*} filteredFiles List containing the files filtered
- * @param {*} hashFiles List containing the hash values for the processed files
- * @param {*} processedDirs List containing the directories previously processed
+ * @param {*} input
+ * @param {*} absolute
  */
-function filter(input, absolute){
+function filterMinified(input, absolute){
     const fileName = path.basename(absolute)
     try {
         Utils.check_transformed(fileName, input)
@@ -40,9 +35,9 @@ try {
     const args = process.argv.slice(2);
     absolute = args[0]
     const input = fs.readFileSync(absolute, "utf-8");
-    filter(input, absolute)
+    filterMinified(input, absolute)
 } catch (error) {   
-    console.log("Failed to filter")
+    console.log("Failed to filter minified files")
 }
 
 

@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const Utils = require("./utils")
 const { exec } = require('child_process');
-const FilterObfuscation = require("./filterObfuscation")
 
 const globals = Utils.globals
 
@@ -27,12 +26,11 @@ function process_input(fileDir, fileSize, hash, folder){
 }
 
 /**
- * Process all files in a given list
+ * filter duplicated files in a given list
  * @param {*} filesToProcess List of files to be processed
- * @param {*} startDir First directory number to store the processed files
  * @param {*} hashFiles List containing the hash values for the processed files
  */
-function process_files(filesToProcess, hashFiles, threshold, processedFiles){
+function filterDuplicated(filesToProcess, hashFiles, threshold, processedFiles){
 
     filesToProcess = filesToProcess.reverse()
     hashFiles = hashFiles.reverse()
@@ -41,9 +39,10 @@ function process_files(filesToProcess, hashFiles, threshold, processedFiles){
         const file = filesToProcess[index]
         const hash = hashFiles[index]
         if(!processedFiles.includes(file)){
+            console.log(file)
             try {
                 if(index < filesToProcess.length - 1)
-                    Utils.check_duplicates(hash, hashFiles.slice(index+1, hashFiles.length-1), filesToProcess.slice(index+1, filesToProcess.length-1),threshold)
+                    Utils.check_duplicates(hash, hashFiles.slice(index+1, hashFiles.length), filesToProcess.slice(index+1, filesToProcess.lengths),threshold)
                 const stats = fs.statSync(file);
                 const fileSize = stats.size / globals.BYTE_TO_KILOBYTE;
                 process_input(file, fileSize, hash, "")
@@ -66,8 +65,6 @@ function process_files(filesToProcess, hashFiles, threshold, processedFiles){
  * If the directry was previously processed it is not processed again.
  * @param {*} directory Given directory
  * @param {*} filesToProcess List containing all the files to be processed
- * @param {*} filteredFiles List containing the files filtered
- * @param {*} hashFiles List containing the hash values for the processed files
  * @param {*} processedDirs List containing the directories previously processed
  */
 function get_files_to_process(directory, filesToProcess, processedDirs, processedFiles){
@@ -101,14 +98,14 @@ function get_files_to_process(directory, filesToProcess, processedDirs, processe
 }
 
 
-function process_exec(index, filesToProcess, step, timeout) {
+function filterMinified_exec(index, filesToProcess, step, timeout) {
             
     if(index >= filesToProcess.length)
         return
 
 
     const file = filesToProcess[index]
-    const cmd = `node ./filter.js ${file}`
+    const cmd = `node ./filterMinified.js ${file}`
 
     exec(cmd, {timeout: timeout},
         (error, stdout, stderr) => { 
@@ -116,7 +113,7 @@ function process_exec(index, filesToProcess, step, timeout) {
                 const logData = Utils.build_logs_log_data_on_failure(file, "unknown", "unknown", error);
                 Utils.write_to_logs_log_file(logData)          
             }
-            process_exec(index+step, filesToProcess, step, timeout)
+            filterMinified_exec(index+step, filesToProcess, step, timeout)
         });
 }
 
@@ -125,75 +122,80 @@ function process_exec(index, filesToProcess, step, timeout) {
  * Process all files in a given directory and stores them in ./input/toTransform
  * The files are stored in folders of MAX_FILES_PER_DIR (3000) files
  */
-function filter(directory, folder, processedFiles, step=5){
+function filterMinified(directory, folder, processedFiles, step=5){
     const processedDirs = Utils.get_processed_dirs();
     const dir = directory + folder
     let filesToProcess = []
     get_files_to_process( dir, filesToProcess, processedDirs, processedFiles)
     for (let i = 0; i < step; i++) {
-        process_exec(i, filesToProcess, step, 5*60000)
+        filterMinified_exec(i, filesToProcess, step, 5*60000)
     }
 }
+
+
+
 
 
 try {
     const args = process.argv.slice(2);
     const firstOption = args[0]
 
-    if (firstOption === "filter-obfuscation"){
+    let logs
+
+    try {
+        logs = fs.readFileSync("./logs/logs.txt", "utf-8").split("\n")
+        logs = logs.slice(0, logs.length - 1)
+    } catch (error) {
+        logs = []
+    }
+
+    const processedFiles = logs.map(function(e) {
+        const tokens = e.split(" - ") 
+        if(tokens[0] === "LOG")
+            return tokens[1]
+    });
+
+    let preLogs
+    try {
+        preLogs = fs.readFileSync("./logs/pre_logs.txt", "utf-8").split("\n")  
+        preLogs = preLogs.slice(0, preLogs.length - 1)
+    } catch (error) {
+        preLogs = []
+    }
+
+        
+    const filteredFiles = preLogs.map(function(e) { 
+        return e.split(" - ")[0]
+    });
+
+
+
+    if (firstOption === "minified"){
         let inputFolder = args[1]
-        FilterObfuscation.filter(inputFolder)
+        if(inputFolder === "Default")
+            inputFolder=""
+        
+        const excludeFiles = processedFiles.concat(filteredFiles)
+        filterMinified(globals.PROCESS_INPUT_DIR, inputFolder, excludeFiles)
+
     } else {
+        if (firstOption === "duplicated") {
 
-        let logs
+            const hashFiles = preLogs.map(function(e) { 
+                return e.split(" - ")[1]
+            });
 
-        try {
-            logs = fs.readFileSync("./logs/process/logs.txt", "utf-8").split("\n")
-            logs = logs.slice(0, logs.length - 1)
-
-        } catch (error) {
-            logs = []
-        }
-
-        const processedFiles = logs.map(function(e) {
-            const tokens = e.split(" - ") 
-            if(tokens[0] === "LOG")
-                return tokens[1]
-        });
-
-        let preLogs
-        try {
-            preLogs = fs.readFileSync("./logs/process/pre_logs.txt", "utf-8").split("\n")  
-            preLogs = preLogs.slice(0, preLogs.length - 1)
-        } catch (error) {
-            preLogs = []
-        }
-
+            if (args[1] === "Default")
+                args[1] = "40"
             
-        const filteredFiles = preLogs.map(function(e) { 
-            return e.split(" - ")[0]
-        });
 
-
-        if (firstOption === "filter"){
-            let inputFolder = args[1]
-            if(inputFolder === "Default")
-                inputFolder=""
-            
-            const excludeFiles = processedFiles.concat(filteredFiles)
-            filter(globals.PROCESS_INPUT_DIR, inputFolder, excludeFiles)
-
-        } else {
-            if (firstOption === "process") {
-
-                const hashFiles = preLogs.map(function(e) { 
-                    return e.split(" - ")[1]
-                });
-
-                process_files(filteredFiles, hashFiles, args[1], processedFiles)
-            }
+            filterDuplicated(filteredFiles, hashFiles, args[1], processedFiles)
+        }
+        else {
+            console.log("Unknown option. Should use \"minified\" or \"duplicated\"")
         }
     }
+
 
 } catch (error) {   
     console.log(error)

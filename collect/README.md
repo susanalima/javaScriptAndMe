@@ -11,7 +11,7 @@
 
     `chmod +x init.sh`
 
-    `chmod +x clean.h`
+    `chmod +x clean.sh`
 
     In github, npm and web folders:
 
@@ -53,6 +53,8 @@ run:
 
 ### NPM
 
+Go [here](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md) and copy the raw version of the file to npmsToDownloadRaw.md (./input/)
+
 `cd ./npm`
 
 build: 
@@ -66,8 +68,8 @@ run:
 * collect_option (default == code): 
     * "code": for collecting the javascript from the websites
     * "sources": for collecting urls from [here](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md). 
-* number_modules (default = 1000): number of sites to download / collect
-* start_at (default = 1): position of the npmsToDownloadRaw-md list (./input/) to start downloading the packages (only valid when collect_option = code)
+* number_modules (default = 1000): number of sites to download (only valid when collect_option = code)
+* start_at (default = 1): position of the npmsToDownloadRaw.md list (./input/) to start downloading the packages (only valid when collect_option = code)
 
 
 ### WEB

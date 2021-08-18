@@ -9,7 +9,7 @@
 
     `chmod +x init.sh`
 
-    `chmod +x cleans.h`
+    `chmod +x clean.sh`
 
     In process subfolder:
 
@@ -24,7 +24,7 @@
 
 ## BUILD and RUN
 
-`cd ./collect`
+`cd ./process`
 
 build: 
 
@@ -32,14 +32,14 @@ build:
 
 run: 
 
-`./run.sh <process_option><second_option>`
+`./run.sh <process_option> <second_option>`
 
 * process_option:
-    * filter: for filtering transformed files and generating the hash values
-    * process: for removing duplicated and generating unique ids and final output
+    * minified: for filtering transformed files and generating the hash values
+    * duplicated: for removing duplicated and generating unique ids and final output
 * second_option:
-    * input_subdirectory: subdirectory inside input folder with the files to process (if process_option is filter)
-    * similarity_score: int representing similarity threshold (should be 40) (if process_option is process)
+    * input_subdirectory: subdirectory inside input folder with the files to process (if process_option is minified)
+    * similarity_score: int representing similarity threshold (should be 40) (if process_option is duplicated)
 
 
 ## Scripts

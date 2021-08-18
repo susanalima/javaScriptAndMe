@@ -14,28 +14,28 @@
 
 ### Collect
 
-1. Run code
-2. Add run help / usage 
+1. Run code : done
+2. Add run help / usage : done
 4. Refactor hardcoded names
-5. Check clean and init scripts 
-6. Check when program re-run (should start from where it stopped) -> collectSources and collectCode
-7. Check Logs
+5. Check clean and init scripts : done
+6. Check when program re-run (should start from where it stopped) -> collectSources and collectCode : done
+7. Check Logs : done
 
 
 * npm : done
-* github : todo
+* github : done
 * web : done
 
 ### Process
 
-1. Run code
+1. Run code : done
 2. Add run help / usage 
-3. Rename files
-4. Remove obfuscation filtering
-5. Check clean and init scripts
-6. Check when program re-run (should start from where it stopped)
+3. Rename files : done
+4. Remove obfuscation filtering : done
+5. Check clean and init scripts : done
+6. Check when program re-run (should start from where it stopped) : done
 7. Refactor process.filter
-8. Check Logs
+8. Check Logs : done
 3. Add source to filename
 
 ### Transform
