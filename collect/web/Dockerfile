@@ -38,5 +38,3 @@ ENV DISPLAY=:99
 WORKDIR /app
 
 COPY . . 
-
-#CMD ["python", "collectCode.py", "--collect_option", "code", "--number_urls", "5000"]

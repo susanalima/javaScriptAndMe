@@ -12,7 +12,13 @@ globals_ = utils.load_globals()
 
 
 def get_url_javascript(url, driver, response):
+    """ Get code from a website
 
+    Args:
+        url (str): url of the website
+        driver (Chrome driver): Chrome driver used to visit the site
+        response (boolean) : Return value to represent if the operation was successful or not
+    """
     response = True
 
     try: 
@@ -68,16 +74,32 @@ def get_url_javascript(url, driver, response):
 
 
 def scrap_web(number_urls, start_at):
+    """ Get code from websites
+
+    Args:
+        number_urls (int): number of sites to visit
+        start_at (int): index in urlsToVsit.txt list of the first site to visit 
+    """
+
     urlsToVisit = utils.get_urls_to_visit()
 
-    if start_at == -1:
-        start_at = utils.get_start_position() + 1
+    if start_at > number_urls:
+        print("Invalid starting point. start_at must be lower or equal to " + str(len(urlsToVisit)))
+        return
 
-    if number_urls >= len(urlsToVisit):
-        number_urls = len(urlsToVisit)
 
     failCount = 0
-    urlsToVisit = urlsToVisit[start_at-1:start_at+number_urls-1]
+
+    startIndex = start_at-1
+
+
+
+    if start_at+number_urls-1  >= c:
+        endIndex = len(urlsToVisit)
+    else:
+        endIndex = start_at+number_urls-1
+
+    urlsToVisit = urlsToVisit[startIndex:endIndex]
 
     for url in urlsToVisit:
         if failCount > 10:

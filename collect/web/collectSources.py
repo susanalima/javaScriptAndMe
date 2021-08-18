@@ -2,11 +2,23 @@ from bs4 import BeautifulSoup as bs
 import time
 import utils
 import os
+import itertools
+
 
 globals_ = utils.load_globals()
 
 
-def get_urls_page(page, numberUrls, index, driver):
+def get_urls_page(page, number_urls, index, driver):
+    """ Get code from websites
+
+    Args:
+        page (int): page in the website
+        number_urls (int): number of sites to retrieve
+        index (int): index in the page to start retrieving the urls
+        driver (Chrome driver): Chrome driver used to visit the site
+    """
+
+
     url = "https://de.majestic.com/reports/majestic-million?s=" + str(page)
     try:
         driver.get(url)
@@ -23,8 +35,14 @@ def get_urls_page(page, numberUrls, index, driver):
     #parse HTML using beautiful soup
     soup = bs(html, "html.parser")
 
-    tableLines = soup.find_all("tr", {"class": "odd"})
-    tableLines.extend(soup.find_all("tr", {"class": "even"}))
+    tableLinesOdd = soup.find_all("tr", {"class": "odd"})
+    tableLinesEven = soup.find_all("tr", {"class": "even"})
+
+
+    tableLines = [None]*(len(tableLinesOdd)+len(tableLinesEven))
+    tableLines[::2] = tableLinesOdd
+    tableLines[1::2] = tableLinesEven
+
 
     outputFile = globals_['COLLECT_WEB_URLS_TO_VISIT_FILE']
 
@@ -35,7 +53,7 @@ def get_urls_page(page, numberUrls, index, driver):
     pos = 0
 
     for line in tableLines:
-        if count >= numberUrls:
+        if count >= number_urls:
             return count
         if pos < index:
             pos += 1
@@ -52,14 +70,18 @@ def get_urls_page(page, numberUrls, index, driver):
 
 
 def get_sources(number_urls, start_at = 1): 
+    """ Get list of websites from https://de.majestic.com/reports/majestic-million?
+
+    Args:
+        number_urls (int): number of sites to retrieve
+        start_at (int): index in the site to start retrieving the urls
+    """
     
     urlsPerPage = 100
 
     start_at -= 1
 
     numberPages = int((number_urls  + start_at)/urlsPerPage) + 1
-
-    print(numberPages)
 
     driver = utils.setup_driver()
 

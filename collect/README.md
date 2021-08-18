@@ -63,18 +63,13 @@ build:
 
 run: 
 
-`./run.sh <collect_option> <number_modules>`
+`./run.sh <collect_option> <number_modules> <start_at>`
 
-* collect_option: 
+* collect_option (default == code): 
     * "code": for collecting the javascript from the websites
     * "sources": for collecting urls from [here](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md). 
-* number_modules: number of sites to download / collect
-
-or
-
-`./run.sh`
-
-by default `<collect_option` is "code" and `<number_modules` is 1.000.
+* number_modules (default = 1000): number of sites to download / collect
+* start_at (default = 0): position of the npmsToDownloadRaw-md list (./input/) to start downloading the packages (only valid when collect_option = code)
 
 
 ### WEB
@@ -86,13 +81,15 @@ build:
 
 run: 
 
-`./run.sh <collect_option> <number_urls><start_at>`
+`./run.sh <collect_option> <number_urls> <start_at>`
 
-* collect_option: 
+* collect_option (default = code):
     * "code": for collecting the javascript from the websites
     * "sources": for collecting urls from the [Majestic Million service](https://de.majestic.com/reports/majestic-million?)
-* number_urls: number of sites to visit / collect
-* start_at: position of the urlsToVisit.txt list (./input/) to start visiting the urls.
+* number_urls (default: 10000): number of sites to visit / collect
+* start_at (default = 1):
+    * if collection_option is "code": position of the urlsToVisit.txt list (./input/) to start visiting the urls
+    * if collection_option is "sources": position of [Majestic Million service](https://de.majestic.com/reports/majestic-million?) list (./input/) to start retrieving urls
 
 ## Scripts
 

@@ -17,8 +17,9 @@ GLOBALS_FILE = "./globals/globals.json"
 
 def load_globals():
     """ Read content from globals file
+
     Returns:
-        dict: fDictionary containing the content of the globals file
+        dict: dictionary containing the content of the globals file
     """
     with open(GLOBALS_FILE) as f:
         data = json.load(f)
@@ -30,6 +31,7 @@ globals_ = load_globals()
 
 def setup_driver():
     """ Setup browser for scrapping the site
+
     Returns:
         webdriver: Chrome driver
     """
@@ -45,8 +47,10 @@ def setup_driver():
 
 def read_from_file(inputFileDir):
     """ Read file contents
+
     Args:
-        inputFileDir (str): Path to file
+        inputFileDir (str): path to file
+
     Returns:
         str: content of the specified file
     """
@@ -59,9 +63,9 @@ def write_to_file(outputFileDir, data, mode=globals_['DEFAULT_WRT_MODE']):
     """ Write data to file
 
     Args:
-        outputFileDir (str): Path to file
-        data (str): Data to write in the file
-        mode (str): File open mode (w by default)
+        outputFileDir (str): path to file
+        data (str): data to write in the file
+        mode (str): file open mode (w by default)
 
     Returns:
         str: result of writting the data to the file
@@ -75,7 +79,7 @@ def make_dir(directory):
     """ Create a directory of it does not exist
 
     Args:
-        directory (str): Directory to create
+        directory (str): directory to create
 
     """
 
@@ -84,6 +88,12 @@ def make_dir(directory):
 
 
 def get_url_name(url):
+    """ Get the name of a website from its url
+
+    Args:
+        url (str): website url
+    """
+
     regex= r'http(s)*:\/\/((.*?)\.)?(.*)\.(.+)'
     name = re.match(regex, url)
     return name[4]
@@ -93,7 +103,7 @@ def write_to_references_file(ref):
     """ Write a reference to the references file
 
     Args:
-        ref (str): Reference to write
+        ref (str): reference to write
     """
 
     ref = ref + "\n"
@@ -105,7 +115,7 @@ def get_urls_to_visit():
     """ Get list of all the files that were previously transformed (stored in ./logs/transformed/transformed.txt )
 
     Returns:
-        list: All files previously transformed
+        list: all files previously transformed
     """
 
     try: 
@@ -116,10 +126,12 @@ def get_urls_to_visit():
 
 def build_log_data_on_success(url):
     """ Build and format log data in case of successful operation
+
     Args:
-        url (str): Url of site being scrapped
+        url (str): url of site being scrapped
+
     Returns:
-        str: Formatted log data 
+        str: formatted log data 
     """
 
     currDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -129,11 +141,13 @@ def build_log_data_on_success(url):
 
 def build_log_data_on_failure(url, error):
     """ Build and format log data in case of failed operation
+
     Args:
-        url (str): Url of site being scrapped
-        error (str): Error message
+        url (str): url of site being scrapped
+        error (str): error message
+
     Returns:
-        str: Formatted log data 
+        str: formatted log data 
     """
 
     currDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -143,10 +157,11 @@ def build_log_data_on_failure(url, error):
 
 def write_to_log_on_failure(url, logFileDir, error = globals_['DEFAULT_ERROR']):
     """ Write log data to log file in case of failed operation
+
     Args:
-        url (str): Url of site being scrapped
-        logFileDir (str): Path to log directory (Unknown reason by default)
-        error (str): Error message
+        url (str): url of site being scrapped
+        logFileDir (str): path to log directory (Unknown reason by default)
+        error (str): error message
     """
 
     logData = build_log_data_on_failure(url, error)
@@ -156,9 +171,10 @@ def write_to_log_on_failure(url, logFileDir, error = globals_['DEFAULT_ERROR']):
 
 def write_to_log_on_success(url, logFileDir):
     """ Write log data to log file in case of successful operation
+
     Args:
-        url (str): Url of site being scrapped
-        logFileDir (str): Path to log directory
+        url (str): url of site being scrapped
+        logFileDir (str): path to log directory
     """
 
     logData = build_log_data_on_success(url)
@@ -186,7 +202,7 @@ def get_start_position():
     """ Get number of line to start visting the urls
 
     Returns:
-        number: Line number
+        number: line number
     """
 
     try:
