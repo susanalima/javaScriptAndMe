@@ -7,12 +7,10 @@ const Utils = require("./utils")
  * Store all suitable files in given directory in a list and filter the remaining files
  * A file is considered suitable if
  * * it is not transformed (obfuscated or minified)
- * * it is not a duplicate
- * * it is complex enough
  * * it can be parsed
  * If the directry was previously processed it is not processed again.
- * @param {*} input
- * @param {*} absolute
+ * @param {*} input String of code
+ * @param {*} absolute Absolute path to input folder
  */
 function filterMinified(input, absolute){
     const fileName = path.basename(absolute)

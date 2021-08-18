@@ -141,7 +141,7 @@ function get_tool_type(suffix){
     const minifiers = ["babel-minify", "google-closure-compiler", "terser", "uglify", "yuicompressor"]
     if(minifiers.includes(suffix))
         return "minifiers"
-    const obfuscators = ["defendjs", "gnirts", "javascript-obfuscator", "jfogs", "js-obfuscator", "jsfuck", "node-obf", "jsobfu"]
+    const obfuscators = ["defendjs", "javascript-obfuscator", "jfogs", "js-obfuscator", "jsfuck", "node-obf", "jsobfu"]
     if(obfuscators.includes(suffix))
         return "obfuscators"
     throw new Error("Invalid suffix")

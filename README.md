@@ -43,14 +43,14 @@
 1. Run code
 2. Add run help / usage 
 3. Remove transform with all configuration option
-4. Fix scrapers name (add config 1)
+4. Fix scrapers name (add config 1) : done
 5. Remove hardcoded tool names and configs
-6. Check clean and init scripts
+6. Check clean and init scripts : done
 6. Check when program re-run (should start from where it stopped) ??
 7. Add timeout to scrapers
 8. Refactor transform.transform_input
 9. Update jfogs
-10. Remove gnirts
+10. Remove gnirts : done
 11. Check Logs
 
 ### Paper

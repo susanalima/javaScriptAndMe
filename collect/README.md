@@ -94,7 +94,9 @@ run:
 ## Scripts
 
 
-`sudo ./scripts/clean.sh`
+init input, output and logs: `sudo ./scripts/init.sh`
+
+clean input, output and logs: `sudo ./scripts/clean.sh`
 
 
 

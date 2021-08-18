@@ -10,7 +10,7 @@ const globals = Utils.globals
  * @param {*} fileDir  File to process
  * @param {*} fileSize Size of the file
  * @param {*} hash Hash value of the file
- * @param {*} nrFiles Name of subfolder
+ * @param {*} folder Name of subfolder
  */
 function process_input(fileDir, fileSize, hash, folder){
     const destinationDir = Utils.build_destination_dir(fileDir, folder);
@@ -29,6 +29,8 @@ function process_input(fileDir, fileSize, hash, folder){
  * filter duplicated files in a given list
  * @param {*} filesToProcess List of files to be processed
  * @param {*} hashFiles List containing the hash values for the processed files
+ * @param {*} threshold value for the maximum duplicated score value accepted
+ * @param {*} processedFiles List containing the files already processed
  */
 function filterDuplicated(filesToProcess, hashFiles, threshold, processedFiles){
 
@@ -56,16 +58,11 @@ function filterDuplicated(filesToProcess, hashFiles, threshold, processedFiles){
 
 
 /**
- * Store all suitable files in given directory in a list and filter the remaining files
- * A file is considered suitable if
- * * it is not transformed (obfuscated or minified)
- * * it is not a duplicate
- * * it is complex enough
- * * it can be parsed
- * If the directry was previously processed it is not processed again.
+ * Get files to be filter (minified)
  * @param {*} directory Given directory
  * @param {*} filesToProcess List containing all the files to be processed
  * @param {*} processedDirs List containing the directories previously processed
+ * @param {*} processedFiles List containing the files already processed
  */
 function get_files_to_process(directory, filesToProcess, processedDirs, processedFiles){
 
@@ -98,6 +95,13 @@ function get_files_to_process(directory, filesToProcess, processedDirs, processe
 }
 
 
+/**
+ * Process each file in the filesToProcess list
+ * @param {*} index Given directory
+ * @param {*} filesToProcess List containing all the files to be processed
+ * @param {*} step Increment (to the next file)
+ * @param {*} timeout Max time the child process (responsible for processing the file) can run
+ */
 function filterMinified_exec(index, filesToProcess, step, timeout) {
             
     if(index >= filesToProcess.length)
@@ -121,6 +125,10 @@ function filterMinified_exec(index, filesToProcess, step, timeout) {
 /**
  * Process all files in a given directory and stores them in ./input/toTransform
  * The files are stored in folders of MAX_FILES_PER_DIR (3000) files
+ * @param {*} directory input directory
+ * @param {*} folder input folder
+ * @param {*} processedFiles files already processed
+ * @param {*} step Increment (to the next file)
  */
 function filterMinified(directory, folder, processedFiles, step=5){
     const processedDirs = Utils.get_processed_dirs();

@@ -10,9 +10,7 @@
 
     `chmod +x init.sh`
 
-    `chmod +x cleanProcess.sh`
-
-    `chmod +x cleanTransform.sh`
+    `chmod +x clean.sh`
 
     `chmod +x cleanAll.sh`
 

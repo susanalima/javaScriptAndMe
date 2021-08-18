@@ -75,7 +75,7 @@ function build_destination_dir(fileDir, folder){
 /**
  * Build and format log data in case of successful operation
  * @param {*} sourceDir Original file dir
- * @param {*} destinationDir MOdified file dir (contains unique id in name)
+ * @param {*} destinationDir Modified file dir (contains unique id in name)
  * @param {*} fileSize Size of the file in kb
  * @param {*} hash Hash value of the file
  */
@@ -94,6 +94,8 @@ function build_logs_log_data_on_success(sourceDir, destinationDir, fileSize, has
 /**
  * Build and format log data in case of failed operation
  * @param {*} sourceDir Original file dir 
+ * @param {*} destinationDir Modified file dir (contains unique id in name)
+ * @param {*} hash Hash value of the file
  * @param {*} error Error message
  */
 function build_logs_log_data_on_failure(sourceDir, destinationDir, hash, error = globals.DEFAULT_ERROR){
@@ -109,7 +111,7 @@ function build_logs_log_data_on_failure(sourceDir, destinationDir, hash, error =
 }
 
 /**
- * Write data to ../logs/processed/processed/logs.txt
+ * Write data to ../logs/processed/logs.txt
  * @param {*} data Data to write in the log
  */
 function write_to_logs_log_file(data, directory = globals.PROCESSED_LOGS_LOG_DIR){
@@ -119,7 +121,7 @@ function write_to_logs_log_file(data, directory = globals.PROCESSED_LOGS_LOG_DIR
 }
 
 /**
- * Write data to ../logs/input/processed/processed.txt
+ * Write data to ../logs/input/processed.txt
  * @param {*} sourceDir Directory processed
  */
 function write_to_pre_log_file(data){
@@ -238,7 +240,10 @@ function check_transformed(fileName, input, linesThreshold=240){
         throw new Error(`File may be minified or obfuscated: ${Math.round(longLinesPercentage*100)/100}% of lines have more than ${linesThreshold} characters (at least 10%)`)    
 }
 
-
+/**
+ * Minify a code file using esprima and escodogen
+ * @param {*} input Content of the file
+ */
 function esprima_minify(input) {
     let tree = {}
     let options = {
@@ -279,12 +284,6 @@ function esprima_minify(input) {
 }
 
 
-function uglify_minify(input) {
-    const res = UglifyJS.minify(input);
-    if (res.error !== undefined)
-        throw new Error(res.error)
-    return res.code
-}   
 
 /**
  * Compute a fuzzy hash for a file of code
@@ -453,7 +452,6 @@ module.exports = {
     check_duplicates,
     check_code_complexity,
     get_processed_files_hash,
-    uglify_minify,
     esprima_minify,
     get_similarity_score,
     globals,

@@ -51,7 +51,7 @@ def transform(driver, input, fileId):
     """
 
     logFileDir = utils.get_log_file_dir(SUFFIX)
-    outputFileDir = OUTPUT_DIR + fileId + globals_['DEFAULT_SEPARATOR'] + SUFFIX + globals_['DEFAULT_SEPARATOR']  + globals_['OUTPUT_FILE_EXTENSION']
+    outputFileDir = OUTPUT_DIR + fileId + globals_['DEFAULT_SEPARATOR'] + SUFFIX + globals_['DEFAULT_SEPARATOR']  +  globals_['DEFAULT_CONFIG'] + globals_['OUTPUT_FILE_EXTENSION']
     try:
         utils.send_input(driver, input, globals_['DL_INPUT_TA_XPATH'], globals_['DL_OBFUSCATE_BTN_XPATH'])
         utils.wait(2)
