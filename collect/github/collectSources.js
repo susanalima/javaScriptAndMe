@@ -52,20 +52,25 @@ async function requestGithub(perPage, page, q) {
 
 /**
  * Get repositories to clone from github
+ * @param {*} numberRepos Number of repos to retrieve
  * @param {*} perPage number of results per page
  * @param {*} page number of page
  * @param {*} q query to ask
+ * @param {*} filename Name of the file to store the list of repos
  */
-async function getRepositoriesToClonePerPage(perPage, page, q, filename){
+async function getRepositoriesToClonePerPage(numberRepos, perPage, page, q, filename){
     try {
         const {data, status} = await requestGithub(perPage, page, q);
         if(status !== 200)
             return false;
         let reposToClone = ""
         const {items} = data;
+        count = 0
         items.forEach(item => {
             const {clone_url} = item;
-            reposToClone += clone_url + "\n"
+            if(count < numberRepos)
+                reposToClone += clone_url + "\n"
+            count++
         })
         store(filename, reposToClone)
     } catch (error) {
@@ -93,12 +98,13 @@ function sleep(ms) {
  * @param {*} numberRepos Number of repos to retrieve
  * @param {*} perPage number of results per page
  * @param {*} q query to ask
+ * @param {*} filename Name of the file to store the list of repos
  */
 async function getRepositoriesToClone(numberRepos, perPage, q, filename){
-    const numberPages = numberRepos/perPage
+    const numberPages = Math.floor(numberRepos/perPage)
     let nrTries = 0
     for (let page = 0; page <= numberPages; page++) {
-        const success = await getRepositoriesToClonePerPage(PER_PAGE, page, q, filename)
+    const success = await getRepositoriesToClonePerPage(numberRepos,PER_PAGE, page, q, filename)
         if(!success){
             if(nrTries > 4)
                 return
@@ -113,12 +119,7 @@ const args = process.argv.slice(2);
 let numberRepos = parseInt(args[0])
 const source = args[1]
 
-if(numberRepos === undefined || numberRepos < 100)
-    numberRepos = 100
-
-
 const PER_PAGE = 100
-
 
 const chromeExtensionsQ = '"chrome extension"+language:JavaScript%26sort=stars%26order=desc'
 const vanillaJSQ = '"vanilla javascript"+language:JavaScript%26sort=stars%26order=desc'
@@ -145,6 +146,4 @@ else if(source === "server"){
 
 if(filename !== "")
     getRepositoriesToClone(numberRepos, PER_PAGE, q, filename)
-
-
 

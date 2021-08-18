@@ -5,15 +5,17 @@
 
 3. Give permissions to scripts.
 
+    In collect folder:
+
     `cd scripts`
 
     `chmod +x init.sh`
 
-    `chmod +x cleans.h`
+    `chmod +x clean.h`
 
     In github, npm and web folders:
 
-     `chmod +x build.sh`
+    `chmod +x build.sh`
 
     `chmod +x run.h`
 
@@ -32,25 +34,21 @@
 
 build: 
 
-`./build.sh`
+`./build.sh` 
 
 run: 
 
 `./run.sh <collect_option> <number_repos> <source>`
 
-* collect_option: 
+* collect_option (default = code): 
     * "code": for collecting the javascript from the websites
     * "sources": for collecting urls from GitHub's REST API
-* number_repos: number of repositories to clone / collect
-* source:
+* number_repos (default = 1000): number of repositories to clone / collect
+* source (default = extensions):
     * "extensions": collect list of browser extensions
     * "vanilla": collect list of repositories written in vanilla javascript
-
-or
-
-`./run.sh`
-
-by default `<collect_option` is "code", `<number_repos` is 1.000 and `<source` is "extensions".
+    * "server": collect list of repositories wich contain server side code
+* start_at (default = 1): position of the repositories list (./input/) to start cloning the repositories (only valid when collect_option = code)
 
 
 ### NPM
@@ -69,7 +67,7 @@ run:
     * "code": for collecting the javascript from the websites
     * "sources": for collecting urls from [here](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md). 
 * number_modules (default = 1000): number of sites to download / collect
-* start_at (default = 0): position of the npmsToDownloadRaw-md list (./input/) to start downloading the packages (only valid when collect_option = code)
+* start_at (default = 1): position of the npmsToDownloadRaw-md list (./input/) to start downloading the packages (only valid when collect_option = code)
 
 
 ### WEB
@@ -118,7 +116,7 @@ run:
 │   ├── web
 ```
 
-_github_ - Responsible for collecting a list of repositories to clone and to clone them. The list is collected with Github's REST API.
+_github_ - Responsible for collecting a list of repositories and to clone them. The list is collected with Github's REST API.
 
 _globals_ - This folder contains a file with the global variales used in the project.
 

@@ -24,7 +24,7 @@
 
 * npm : done
 * github : todo
-* web : todo
+* web : done
 
 ### Process
 
