@@ -14,25 +14,18 @@ const Defendjs = require('./tools/obfuscators/defendjs/transform');
 function get_transformed_files(suffix, configFile){
     let transformedFiles = []
 
-    cf = []
-    if(configFile == "all"){
-        cf = Utils.get_configurations(suffix)
-    } else {
-        cf = [configFile]
+    try {
+        const logFileDir = Utils.get_log_file_dir(suffix, configFile)
+        let logLines = fs.readFileSync(logFileDir).toString().split(Utils.globals.LOG_LINE_BREAK);
+        logLines.forEach(item => {
+            const tokens = item.split(Utils.globals.LOG_SEPARATOR)
+            if(tokens.length > 0)
+                transformedFiles.push(tokens[1] + Utils.globals.INPUT_FILE_EXTENSION) 
+        });
+    } catch (error) {
+        
     }
-    for (let index = 0; index < cf.length; index++) {
-        try {
-            const logFileDir = Utils.get_log_file_dir(suffix, cf[index])
-            let logLines = fs.readFileSync(logFileDir).toString().split(Utils.globals.LOG_LINE_BREAK);
-            logLines.forEach(item => {
-                const tokens = item.split(Utils.globals.LOG_SEPARATOR)
-                if(tokens.length > 0)
-                    transformedFiles.push(tokens[1] + Utils.globals.INPUT_FILE_EXTENSION) 
-            });
-        } catch (error) {
-            
-        }
-    }
+    
     return transformedFiles
 }
 
@@ -102,12 +95,7 @@ function transform_exec(cmdBasis, filesToTransform, outputDir, suffix, configFil
     if(index >= filesToTransform.length)
         return
 
-    cf = ""
-    if (configFile == "all"){
-        cf = Utils.get_random_configuration(suffix)
-    } else {
-        cf = configFile
-    }
+    cf = configFile
 
     const file = filesToTransform[index]
     const fileId = Utils.get_fileId(file);
@@ -138,11 +126,9 @@ function transform_exec(cmdBasis, filesToTransform, outputDir, suffix, configFil
  * @param {*} suffix Label of the tool
  */
 function get_tool_type(suffix){
-    const minifiers = ["babel-minify", "google-closure-compiler", "terser", "uglify", "yuicompressor"]
-    if(minifiers.includes(suffix))
+    if(Utils.globals.MINIFIERS.includes(suffix))
         return "minifiers"
-    const obfuscators = ["defendjs", "javascript-obfuscator", "jfogs", "js-obfuscator", "jsfuck", "node-obf", "jsobfu"]
-    if(obfuscators.includes(suffix))
+    if(Utils.globals.OBFUSCATORS.includes(suffix))
         return "obfuscators"
     throw new Error("Invalid suffix")
 }

@@ -2,7 +2,6 @@
 
 mkdir -p -- "./input"
 mkdir -p -- "./logs"
-mkdir -p -- "./logs"
 mkdir -p -- "./output/obfuscated"
 mkdir -p -- "./output/obfuscated/jscrambler"
 mkdir -p -- "./output/obfuscated/defendjs"

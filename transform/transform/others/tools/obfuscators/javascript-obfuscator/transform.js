@@ -17,7 +17,6 @@ function transform(input, configFile, fileId, suffix, outputDir) {
     try {
         const obfuscationResult = JavaScriptObfuscator.obfuscate( input, config);
         const output = obfuscationResult.getObfuscatedCode();
-        //console.log(output)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         Utils.store(fileDir, output); 
         console.log(fileDir)

@@ -89,7 +89,6 @@ run:
 where:
 
 * suffix:
-    * gnirts: to use gnirts obfuscator
     * javascript-obfuscator: to use javascript-obfuscator obfuscator 
     * jfogs: to use jfogs obfuscator
     * js-obfuscator: to use js-obfuscator obfuscator

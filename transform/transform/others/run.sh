@@ -3,7 +3,7 @@ SUFFIX=${1:-"node-obf"}
 CONFIG_FILE=${2:-"1.json"}
 
 FOLDER="transform"
-MOUNT_FOLDER="/home/susana/Documents/teses/automatic-identification-of-obfuscated-javascript-using-machine-learning/$FOLDER"
+MOUNT_FOLDER="/home/susana/Documents/dataset-tool/$FOLDER"
 INPUT="$MOUNT_FOLDER/input"
 LOGS="$MOUNT_FOLDER/logs"
 OUTPUT="$MOUNT_FOLDER/output"

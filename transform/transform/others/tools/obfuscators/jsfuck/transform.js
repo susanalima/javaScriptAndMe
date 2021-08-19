@@ -10,7 +10,6 @@ const Utils = require("../../../utils")
 function transform(input, configFile, fileId, suffix, outputDir) {
     try {
         const output = JSFuck.encode(input, true, true)
-        //console.log(output)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         Utils.store(fileDir, output);
         console.log(fileDir)

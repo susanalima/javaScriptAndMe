@@ -63,13 +63,7 @@ function transform_exec(filesToTransform, outputDir, configFile, index, timeout)
         return
 
 
-    cf = ""
-    if (configFile == "all"){
-        cf = Utils.get_random_configuration(suffix)
-    } else {
-        cf = configFile
-    }
-
+    cf = configFile
 
     let cmd = ""
     cmd = Utils.globals.DF_CONFIG_DIR + cf

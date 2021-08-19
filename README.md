@@ -22,10 +22,6 @@
 7. Check Logs : done
 
 
-* npm : done
-* github : done
-* web : done
-
 ### Process
 
 1. Run code : done
@@ -40,18 +36,18 @@
 
 ### Transform
 
-1. Run code
+1. Run code : done
 2. Add run help / usage 
-3. Remove transform with all configuration option
+3. Remove transform with all configuration option : done
 4. Fix scrapers name (add config 1) : done
-5. Remove hardcoded tool names and configs
+5. Remove hardcoded tool names and configs : done
 6. Check clean and init scripts : done
-6. Check when program re-run (should start from where it stopped) ??
-7. Add timeout to scrapers
-8. Refactor transform.transform_input
-9. Update jfogs
+6. Check when program re-run (should start from where it stopped) ??  scrappers
+7. Add timeout to scrapers : no!
+8. Refactor transform.transform_input ?
+9. Update jfogs : done
 10. Remove gnirts : done
-11. Check Logs
+11. Check Logs : done
 
 ### Paper
 

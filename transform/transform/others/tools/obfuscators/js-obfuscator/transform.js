@@ -15,7 +15,6 @@ const configDir = "./tools/obfuscators/js-obfuscator/configurations/" ;
 async function transform(input, configFile, fileId, suffix, outputDir){
     const config = Utils.load_config(configDir, configFile);
     await jsObfuscator(input, config).then(function(obfuscated) {
-        //console.log(obfuscated)
         const fileDir = Utils.build_output_dir(fileId, outputDir, suffix, configFile);
         if(obfuscated == "undefined")
         {

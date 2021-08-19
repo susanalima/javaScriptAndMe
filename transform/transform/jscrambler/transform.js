@@ -166,14 +166,15 @@ function get_log_file_dir(suffix, configFile = globals.DEFAULT_CONFIG_FILE){
     try {
         const logFileDir = get_log_file_dir(suffix, configFile)
         let transformedFiles = []
-        let logLines = fs.readFileSync(logFileDir).toString().split(Utils.globals.LOG_LINE_BREAK);
+        let logLines = fs.readFileSync(logFileDir).toString().split(globals.LOG_LINE_BREAK);
         logLines.forEach(item => {
-            const tokens = item.split(Utils.globals.LOG_SEPARATOR)
+            const tokens = item.split(globals.LOG_SEPARATOR)
             if(tokens.length > 0)
-                transformedFiles.push(tokens[0] + Utils.globals.INPUT_FILE_EXTENSION) 
+                transformedFiles.push(tokens[1] + globals.INPUT_FILE_EXTENSION) 
         });
         return transformedFiles
     } catch (error) {
+        console.log(error)
         return []
     }
 }
@@ -226,13 +227,8 @@ function transform_recursive(index, filesToTransform, configFile, outputDir, tim
     if(index >= filesToTransform.length)
         return;
 
-    cf = ""
-    if (configFile == "./configurations/all"){
-        cf = get_random_configuration()
-    } else {
-        cf = configFile
-    }
-    
+    cf = configFile
+
     const inputFile = copy_file_to_local_input(filesToTransform[index])
 
 
@@ -272,8 +268,8 @@ function transform_recursive(index, filesToTransform, configFile, outputDir, tim
 function transform(directory, configFile, step, outputDir = globals.OBFUSCATED_OUTPUT_DIR){
     let filesToTransform = []
 
-    //const transformedFiles = get_transformed_files(configFile)
-    const transformedFiles = []
+    const transformedFiles = get_transformed_files(configFile)
+
 
     get_files_in_directory(directory,filesToTransform, transformedFiles)
 

@@ -161,29 +161,8 @@ function write_to_transformed_log_file(sourceDir){
 
 
 
-function get_configurations(suffix){
-    if(suffix == globals.DEFENDJS)
-        return ['1.sh', '2.sh']
-    if(suffix == globals.JS_OBFUSCATOR)
-        return ['1.json', '2.json', '3.json']
-    if(suffix == globals.JAVASCRIPT_OBFUSCATOR)
-        return ['1.json', '2.json', '3.json', '4.json']
-    
-    return ['1.json']
-}
 
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function get_random_configuration(suffix){
-    const configurations = get_configurations(suffix)
-    const i = getRandomInt(0, configurations.length - 1)
-    return configurations[i]
-}
 
 module.exports = {
     get_fileId,
@@ -198,7 +177,5 @@ module.exports = {
     copy_file,
     delete_file,
     get_log_file_dir,
-    get_random_configuration, 
-    get_configurations,
     globals,
 }
