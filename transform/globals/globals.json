@@ -58,7 +58,7 @@
     "APPEND_WRT_MODE":"a",
     "DL_URL": "https://www.daftlogic.com/projects-online-javascript-obfuscator.htm",
     "DL_CONCENT_BTN_XPATH": "//*[@class='fc-button fc-cta-consent fc-primary-button']",
-    "DL_INPUT_TA_XPATH": "//*[@id='ta_input']",
+    "DL_INPUT_TA_XPATH": "//*[@id='ta_input001']",
     "DL_OBFUSCATE_BTN_XPATH": "//*[@name='btn_obfuscate']",
     "DL_OUTPUT_TA_XPATH": "//*[@id='ta_output']",
     "DL_CLEAR_INPUT_AND_OUTPUT_BTN_XPATH": "//*[@name='btn_clearinandout']",

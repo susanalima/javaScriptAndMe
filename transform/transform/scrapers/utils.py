@@ -94,7 +94,6 @@ def get_transformed_files(transformFlag):
             tokens = line.split(globals_['LOG_SEPARATOR'])
             if(len(tokens) > 0):
                 transformedFiles.append(tokens[0] + globals_['INPUT_FILE_EXTENSION'])
-        print(transformedFiles)
         return transformedFiles
     except Exception:
         return []
