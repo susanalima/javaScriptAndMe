@@ -124,7 +124,6 @@ function write_to_log_file(suffix, data, configNr){
  */
 function get_files_in_directory(directory, files, excludeFiles=[]){
 
-    //const processedFiles = get_transformed_files();
      fs.readdirSync(directory).forEach(file => {
         const absolute = path.join(directory, file);
         const stats = fs.statSync(absolute);
@@ -177,20 +176,6 @@ function get_log_file_dir(suffix, configFile = globals.DEFAULT_CONFIG_FILE){
         console.log(error)
         return []
     }
-}
-
-
-function get_random_int(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-function get_random_configuration(){
-    const configurations = ["./configurations/1.json", "./configurations/2.json", "./configurations/3.json", "./configurations/4.json"]
-    const i = get_random_int(0, configurations.length - 1)
-    return configurations[i]
 }
 
 

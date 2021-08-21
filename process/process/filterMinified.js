@@ -16,7 +16,7 @@ function filterMinified(input, absolute){
     const fileName = path.basename(absolute)
     try {
         Utils.check_transformed(fileName, input)
-        const hash = Utils.compute_hash(fileName, input, Utils.esprima_minify)
+        const hash = Utils.compute_hash(input, Utils.esprima_minify)
         const logData =  absolute + " - " + hash + "\n"
         Utils.write_to_pre_log_file(logData)
     } catch (error) {

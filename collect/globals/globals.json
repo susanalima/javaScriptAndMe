@@ -27,5 +27,4 @@
     "COLLECT_GITHUB_LOG_FILE_DIR": "./logs/github/logs.txt",
     "LOG_HEADER": "LOG",
     "LOG_TAIL": "ENDLOG"
-
 }

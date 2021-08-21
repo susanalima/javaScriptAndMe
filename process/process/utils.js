@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const {v4: uuidv4} = require('uuid'); 
 const Ctph = require('ctph.js');
-const UglifyJS = require("uglify-js");
 const Ast = require('abstract-syntax-tree')
 const Esprima = require('esprima')
 const Esmangle = require('esmangle')
@@ -81,13 +80,13 @@ function build_destination_dir(fileDir, folder){
  */
 function build_logs_log_data_on_success(sourceDir, destinationDir, fileSize, hash){
     const currDate = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-    return "LOG - " + 
+    return globals.LOG_HEADER + globals.LOG_SEPARATOR  +  
     sourceDir + globals.LOG_SEPARATOR 
     + path.basename(destinationDir)  + globals.LOG_SEPARATOR 
     + currDate + globals.LOG_SEPARATOR + fileSize + "kb" 
     + globals.LOG_SEPARATOR + hash
     + globals.LOG_SEPARATOR + globals.LOG_SUCCESS 
-    + " - ENDLOG"
+    + globals.LOG_TAIL + globals.LOG_SEPARATOR
     + globals.LOG_LINE_BREAK;
 }
 
@@ -100,13 +99,13 @@ function build_logs_log_data_on_success(sourceDir, destinationDir, fileSize, has
  */
 function build_logs_log_data_on_failure(sourceDir, destinationDir, hash, error = globals.DEFAULT_ERROR){
     const currDate = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-    return "LOG - " + sourceDir + globals.LOG_SEPARATOR 
+    return globals.LOG_HEADER + globals.LOG_SEPARATOR  + sourceDir + globals.LOG_SEPARATOR 
     + path.basename(destinationDir) 
     + globals.LOG_SEPARATOR + currDate 
     + globals.LOG_SEPARATOR + hash
     + globals.LOG_SEPARATOR + globals.LOG_FAILURE 
     + globals.LOG_LINE_BREAK +  globals.LOG_LINE_INDENTATION 
-    + error + " - ENDLOG"
+    + error + globals.LOG_TAIL + globals.LOG_SEPARATOR
     + globals.LOG_LINE_BREAK;
 }
 
@@ -157,7 +156,7 @@ function get_processed_dirs(){
     const lines = read_file_to_list(globals.PROCESSED_LOGS_LOG_DIR)
     return lines.map( e => {
         const tokens = e.split(" - ")
-        if (tokens[0] = "LOG")
+        if (tokens[0] === "LOG")
             return tokens[1]
     })
 }
@@ -246,7 +245,7 @@ function check_transformed(fileName, input, linesThreshold=240){
  */
 function esprima_minify(input) {
     let tree = {}
-    let options = {
+    const options = {
         "scopes": false,
         "comment": false,
         "attachComment": false,
@@ -269,7 +268,7 @@ function esprima_minify(input) {
         throw new Error(error)
     }
     const result = Esmangle.mangle(tree);
-    const output = Escodegen.generate(result, {
+    return Escodegen.generate(result, {
         format: {
             renumber: true,
             hexadecimal: false,
@@ -280,7 +279,6 @@ function esprima_minify(input) {
             comment: false,
         }
     })
-    return output
 }
 
 
@@ -289,11 +287,10 @@ function esprima_minify(input) {
  * Compute a fuzzy hash for a file of code
  * 1. minify the file
  * 2. compute the hash of the minified file
- * @param {*} fileName Name of the file
  * @param {*} input Content of the file
- * @param {*} storeMinified Flag to store the minified code or not
+ * @param {*} min_func Minification function
  */
-function compute_hash(fileName, input, min_func, storeMinified = false){
+function compute_hash(input, min_func){
     
     let code = ""
     try {
@@ -302,9 +299,7 @@ function compute_hash(fileName, input, min_func, storeMinified = false){
         throw new Error(`Unable to parse code:\n\t ${error}`)
     }
 
-    const hash = Ctph.digest(code)
-
-    return hash
+    return Ctph.digest(code)
 }
 
 
@@ -326,7 +321,7 @@ function get_similarity_score(hash1, hash2){
  * @param {*} filesToProcess Files to be processed
  * @param {*} threshold Threshold for similarity score
  */
-function check_duplicates(hash, hashFiles, filesToProcess, threshold=60){
+function check_duplicates(hash, hashFiles, filesToProcess, threshold=40){
     let dupHash = undefined
     let dupScore = 0
     let index = 0;

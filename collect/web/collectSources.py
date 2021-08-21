@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup as bs
 import time
 import utils
 import os
-import itertools
 
 
 globals_ = utils.load_globals()
@@ -47,7 +46,7 @@ def get_urls_page(page, number_urls, index, driver):
     outputFile = globals_['COLLECT_WEB_URLS_TO_VISIT_FILE']
 
     if not os.path.exists(outputFile):
-        f = open(outputFile,"w+")
+        open(outputFile,"w+")
 
     count = 0
     pos = 0

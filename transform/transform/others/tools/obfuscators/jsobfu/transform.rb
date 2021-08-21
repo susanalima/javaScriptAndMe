@@ -7,8 +7,7 @@ CONFIG_DIR = "./tools/obfuscators/jsobfu/configurations/"
 
 #Transform a snippet of code with the jsobfu tool, with all the specified configurations
 # Params:
-# +input+:: String containing the code to transform
-# +fileId+:: Id of file transformed
+# +inputFile+:: Name of the code file 
 # +configs+:: All the specified configurations for the jsobfu tool
 def transform(inputFile, configFile)
   file = File.open(inputFile)

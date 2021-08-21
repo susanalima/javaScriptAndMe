@@ -1,5 +1,9 @@
 # dataset-tool
 
+
+Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh` files in the program by the absolute directory of the code on your workstation.
+
+
 * [Collect JavaScript code](./collect/README.md)
 * [Process JavaScript code](./process/README.md)
 * [Transform JavaScript code](./transform/README.md)
@@ -10,6 +14,10 @@
 2. Update comments
 3. Improve error handling
 4. Update READMES
+5. Check if sudos are required
+6. process readme add detailed requirements for filtering a file
+7. explain how to add more tools or configurations
+    * in defendjs the dockerfile must be changed
 
 
 ### Collect

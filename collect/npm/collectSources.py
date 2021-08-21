@@ -16,7 +16,7 @@ def get_sources():
 
 
     if not os.path.exists(outputFile):
-        f = open(outputFile,"w+")
+        open(outputFile,"w+")
 
     with open(outputFile,'a') as f:
         for match in matches:

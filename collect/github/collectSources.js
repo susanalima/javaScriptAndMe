@@ -84,7 +84,6 @@ async function getRepositoriesToClonePerPage(numberRepos, perPage, page, q, file
 /**
  * Sleep for a specified number of milliseconds
  * @param {*} ms Number of milliseconds
- * @returns 
  */
 function sleep(ms) {
     return new Promise((resolve) => {

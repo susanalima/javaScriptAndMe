@@ -1,5 +1,9 @@
 ## SETUP
 
+Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh` files in the program by the absolute directory of the code on your workstation.
+
+
+
 1. Install [docker](https://docs.docker.com/get-docker/).
 
 

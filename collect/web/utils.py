@@ -1,10 +1,7 @@
 import requests
-from bs4 import BeautifulSoup as bs
-from urllib.parse import urljoin
 from selenium import webdriver
 import re
 import os
-import time
 import requests
 import json
 from datetime import datetime

@@ -1,6 +1,4 @@
-import os
 import json
-import re
 from datetime import datetime
 
 """" Directory to globals file """

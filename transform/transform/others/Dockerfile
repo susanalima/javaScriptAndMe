@@ -58,13 +58,7 @@ COPY . .
 RUN chmod +x ./tools/obfuscators/defendjs/transform.sh
 RUN chmod +x ./tools/obfuscators/defendjs/configurations/1.sh
 RUN chmod +x ./tools/obfuscators/defendjs/configurations/2.sh
-#RUN chmod +x ./tools/obfuscators/defendjs/configurations/3.sh
-#RUN chmod +x ./tools/obfuscators/defendjs/configurations/4.sh
 
 RUN mkdir ./tools/obfuscators/defendjs/localInput/
 RUN mkdir ./tools/obfuscators/defendjs/localOutput/
 
-
-#CMD ["node", "transform.js"]
-# node transform.js transformation-tool config-file (with extension)
-#ENTRYPOINT ["node", "transform.js", "jsobfu", "1.json"]

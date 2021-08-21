@@ -20,17 +20,5 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
 # and install node 
 RUN apt-get install nodejs
 
-# install git
-# RUN apt install -y git
-
-# add `/app/node_modules/.bin` to $PATH
-#ENV PATH /app/node_modules/.bin:$PATH
-
 # set working directory
 COPY . .
-
-#RUN chmod +x ./download.sh
-
-#RUN ./download.sh
-
-#CMD [ "python", "collectCode.py", "--collect_option", "code", "--number_modules", "1000"]

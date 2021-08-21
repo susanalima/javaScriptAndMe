@@ -71,7 +71,7 @@ function copy_file(sourceDir, destinationDir){
  */
 function build_log_data_on_success(fileId, fileSize){
     const currDate = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-    return "LOG - " + fileId + globals.LOG_SEPARATOR + currDate + globals.LOG_SEPARATOR + fileSize + "kb" + globals.LOG_SEPARATOR + globals.LOG_SUCCESS + " - ENDLOG" + globals.LOG_LINE_BREAK;
+    return globals.LOG_HEADER + globals.LOG_SEPARATOR + fileId + globals.LOG_SEPARATOR + currDate + globals.LOG_SEPARATOR + fileSize + "kb" + globals.LOG_SEPARATOR + globals.LOG_SUCCESS + globals.LOG_SEPARATOR + globals.LOG_TAIL + globals.LOG_LINE_BREAK;
 }
 
 
@@ -82,7 +82,7 @@ function build_log_data_on_success(fileId, fileSize){
  */
 function build_log_data_on_failure(fileId, error = globals.DEFAULT_ERROR){
     const currDate = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-    return "LOG - " + fileId + globals.LOG_SEPARATOR + currDate + globals.LOG_SEPARATOR + globals.LOG_FAILURE + globals.LOG_LINE_BREAK +  globals.LOG_LINE_INDENTATION + error + " - ENDLOG" + globals.LOG_LINE_BREAK;
+    return  globals.LOG_HEADER + globals.LOG_SEPARATOR + fileId + globals.LOG_SEPARATOR + currDate + globals.LOG_SEPARATOR + globals.LOG_FAILURE + globals.LOG_LINE_BREAK +  globals.LOG_LINE_INDENTATION + error + globals.LOG_SEPARATOR + globals.LOG_TAIL + globals.LOG_LINE_BREAK;
 }
 
 

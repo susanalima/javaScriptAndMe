@@ -10,7 +10,7 @@ def clone_repos(numberRepos, source, filename, start_at):
 
     Args:
         numberRepos (str): number of repositories to clone
-        source (str): type of repositores
+        source (str): type of repositorIes
         filename (str): file with the list of repositories to clone
         start_at (int): position of the list to start cloning the repositories
     """

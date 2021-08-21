@@ -14,13 +14,12 @@ const suffix = Utils.globals.DEFENDJS
  * @param {*} files Names of the files to transform
  */
 function build_package_json(files){
-    const data = {
+    return {
         name: "name",
         defendjs: {
             mainFiles: files
         }
     }
-    return data;
 }
 
 

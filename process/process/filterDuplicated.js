@@ -159,7 +159,7 @@ try {
 
     const processedFiles = logs.map(function(e) {
         const tokens = e.split(" - ") 
-        if(tokens[0] === "LOG")
+        if(tokens[0] === globals.LOG_HEADER)
             return tokens[1]
     });
 

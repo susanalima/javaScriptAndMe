@@ -24,7 +24,3 @@ COPY . .
 RUN chmod +x ./transform.sh
 
 ENV NODE_ENV=local
-
-#RUN ./transform.sh
-
-#CMD ["node", "transform.js"]

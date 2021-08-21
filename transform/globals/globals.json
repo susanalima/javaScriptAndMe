@@ -79,5 +79,7 @@
     "NODE_MODULES": "node_modules",
     "TIMEOUT": 300000, 
     "MINIFIERS": ["babel-minify", "google-closure-compiler", "terser", "uglify", "yuicompressor"],
-    "OBFUSCATORS": ["defendjs", "javascript-obfuscator", "jfogs", "js-obfuscator", "jsfuck", "node-obf", "jsobfu"]
+    "OBFUSCATORS": ["defendjs", "javascript-obfuscator", "jfogs", "js-obfuscator", "jsfuck", "node-obf", "jsobfu"],
+    "LOG_HEADER": "LOG",
+    "LOG_TAIL": "ENDLOG"
 }
