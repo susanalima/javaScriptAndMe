@@ -1,8 +1,5 @@
 ## SETUP
 
-Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh` files in the program by the absolute directory of the code on your workstation.
-
-
 
 1. Install [docker](https://docs.docker.com/get-docker/).
 
@@ -23,7 +20,7 @@ Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh
 
 4. Run init script to create required directory structure (`sudo` required).
 
-    `sudo ./scripts/init.sh`
+    `./scripts/init.sh`
   
 
 ## BUILD and RUN
@@ -40,17 +37,25 @@ run:
 
 * process_option:
     * minified: for filtering transformed files and generating the hash values
-    * duplicated: for removing duplicated and generating unique ids and final output
+    * duplicated: for removing duplicated and generating unique ids and final output (should be run after running the minified option)
 * second_option:
-    * input_subdirectory: subdirectory inside input folder with the files to process (if process_option is minified)
     * similarity_score: int representing similarity threshold (should be 40) (if process_option is duplicated)
+
+
+If process_option is minified:
+* logs.txt in process/logs contains the logs of files that were filter because they were consider to be minified or obfuscated, or had parsing errors
+* pre_logs.txt contains the rest of the files and their corresponding hash values
+
+If process_option is duplicated:
+* logs.txt contains all logs for all files, filtered or not. Files that were not filtered are given a new name that is also present in the logs for full traceability
+* all files kept are renamed and stored in process/output
 
 
 ## Scripts
 
-init input, output and logs: `sudo ./scripts/init.sh`
+init input, output and logs: `./scripts/init.sh`
 
-clean input, output and logs: `sudo ./scripts/clean.sh`
+clean input, output and logs: `./scripts/clean.sh`
 
 
 

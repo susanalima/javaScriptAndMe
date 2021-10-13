@@ -105,7 +105,7 @@ function build_logs_log_data_on_failure(sourceDir, destinationDir, hash, error =
     + globals.LOG_SEPARATOR + hash
     + globals.LOG_SEPARATOR + globals.LOG_FAILURE 
     + globals.LOG_LINE_BREAK +  globals.LOG_LINE_INDENTATION 
-    + error + globals.LOG_TAIL + globals.LOG_SEPARATOR
+    + error + globals.LOG_SEPARATOR + globals.LOG_TAIL
     + globals.LOG_LINE_BREAK;
 }
 

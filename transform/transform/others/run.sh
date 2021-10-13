@@ -2,8 +2,7 @@
 SUFFIX=${1:-"node-obf"}
 CONFIG_FILE=${2:-"1.json"}
 
-FOLDER="transform"
-MOUNT_FOLDER="/home/susana/Documents/dataset-tool/$FOLDER"
+MOUNT_FOLDER=${PWD%/*/*};
 INPUT="$MOUNT_FOLDER/input"
 LOGS="$MOUNT_FOLDER/logs"
 OUTPUT="$MOUNT_FOLDER/output"

@@ -1,7 +1,5 @@
 ## SETUP
 
-Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh` files in the program by the absolute directory of the code on your workstation.
-
 
 1. Install [docker](https://docs.docker.com/get-docker/).
 
@@ -15,17 +13,15 @@ Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh
 
     `chmod +x clean.sh`
 
-    `chmod +x cleanAll.sh`
-
     in jscrambler, scrapers and others folders:
 
     `chmod +x build.sh`
 
     `chmod +x run.sh`
 
-4. Run init script to create required directory structure (`sudo` required).
+4. Run init script to create required directory structure.
 
-    `sudo ./scripts/init.sh`
+    `./scripts/init.sh`
 
 
 6. Add files to be transformed to _./input_
@@ -75,6 +71,9 @@ where:
     * daftLogic: to use daftlogic obfuscator
     * javascript2img: to use javascript2img obfuscator
 
+Note: code obfuscated with javascript2img often is broken/unparsable
+
+Note: obfuscating with these tools takes a long time
 
 ### OTHERS
 
@@ -126,9 +125,7 @@ where:
 │   ├── logs
 │   ├── output
 │   │   ├── obfuscated
-│   │   ├── regular
-│   │   |   ├── minified
-│   │   |   ├── regular
+│   │   ├── minfied
 │   ├── scripts
 │   ├── transform
 │   │   ├── jscrambler
@@ -151,11 +148,7 @@ _output_: This folder houses the output files of the program.
 
 - _obfuscated_ - All the files obfuscated, divided by tool used.
 
-- _regular_ - All the regular files.
-
-    - _minified_ - All the minified files, divided by tool used.
-
-    - _regular_ - All the untransformed files.
+- _minified_ - All the minified files, divided by tool used.
 
 _scripts_ - Contains scripts to create and clean all the required logs, output and input folders.
 

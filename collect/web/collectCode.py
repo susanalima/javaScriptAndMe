@@ -94,7 +94,7 @@ def scrap_web(number_urls, start_at):
 
 
 
-    if start_at+number_urls-1  >= c:
+    if start_at+number_urls-1  >= len(urlsToVisit):
         endIndex = len(urlsToVisit)
     else:
         endIndex = start_at+number_urls-1

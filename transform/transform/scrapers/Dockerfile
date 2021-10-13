@@ -37,5 +37,3 @@ ENV DISPLAY=:99
 WORKDIR /app
 RUN pip install selenium==3.8.0
 COPY . . 
-# daftLogic or javascript2img
-#ENTRYPOINT ["python", "transform.py", "javascript2img"]

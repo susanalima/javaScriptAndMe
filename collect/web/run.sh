@@ -4,8 +4,7 @@ COLLECT_OPTION=${1:-"code"}
 NUMBER_URLS=${2:-"10000"}
 START_AT=${3:-"1"}
 
-FOLDER="collect"
-MOUNT_FOLDER="/home/susana/Documents/dataset-tool/$FOLDER"
+MOUNT_FOLDER=${PWD%/*};
 INPUT="$MOUNT_FOLDER/input"
 LOGS="$MOUNT_FOLDER/logs"
 OUTPUT="$MOUNT_FOLDER/output"

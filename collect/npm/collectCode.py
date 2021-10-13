@@ -62,6 +62,6 @@ if __name__ == '__main__':
         download_modules(number_modules, start_at)
 
     if(args.collect_option == "sources"):
-        get_sources()
+        get_sources(number_modules)
 
       

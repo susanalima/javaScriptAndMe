@@ -127,15 +127,6 @@ function build_output_dir(fileId, outputDir, suffix, configFile = globals.DEFAUL
 
 
 /**
- * Return file path to store the code from a specified file (not transformed)
- * @param {*} fileId FileId of file to store
- */
-function build_regular_output_dir(fileId) {
-    return globals.REGULAR_OUTPUT_DIR + globals.DIR_SEPARATOR + fileId + globals.DEFAULT_SEPARATOR + globals.REGULAR+ globals.OUTPUT_FILE_EXTENSION;
-}
-
-
-/**
  * Read data from specified configuration file
  * @param {*} configDir Configurations directory
  * @param {*} configFile Configuration file being loaded
@@ -168,7 +159,6 @@ module.exports = {
     get_fileId,
     store, 
     build_output_dir, 
-    build_regular_output_dir,
     load_config, 
     write_to_log_file, 
     build_log_data_on_success, 

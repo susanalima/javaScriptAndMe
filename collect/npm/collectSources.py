@@ -1,7 +1,7 @@
 import re
 import os
 
-def get_sources():
+def get_sources(number_modules):
     """ Get list of modules to install
     
     """
@@ -19,5 +19,9 @@ def get_sources():
         open(outputFile,"w+")
 
     with open(outputFile,'a') as f:
+        counter = 0
         for match in matches:
             f.write(match + "\n")
+            counter += 1
+            if counter >= number_modules:
+                break

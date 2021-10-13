@@ -1,7 +1,5 @@
 ## SETUP
 
-Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh` files in the program by the absolute directory of the code on your workstation.
-
 
 1. Install [docker](https://docs.docker.com/get-docker/).
 
@@ -24,7 +22,7 @@ Before running replace the `/home/susana/Documents/dataset-tool/` in all `run.sh
 
 4. Run init script to create required directory structure (`sudo` required).
 
-    `sudo ./scripts/init.sh`
+    `./scripts/init.sh`
   
 ## BUILD and RUN
 
@@ -38,7 +36,7 @@ build:
 
 run: 
 
-`./run.sh <collect_option> <number_repos> <source>`
+`./run.sh <collect_option> <number_repos> <source> <start_at>`
 
 * collect_option (default = code): 
     * "code": for collecting the javascript from the websites
@@ -49,6 +47,13 @@ run:
     * "vanilla": collect list of repositories written in vanilla javascript
     * "server": collect list of repositories wich contain server side code
 * start_at (default = 1): position of the repositories list (./input/) to start cloning the repositories (only valid when collect_option = code)
+
+
+
+If collect_option is sources then the output is stored in the collect/input directory (as it will be used as input for collecting the sources)
+If collect_option is code then the output is stored in the collect/output directory and the logs are stored in the logs/output directory.
+
+
 
 
 ### NPM
@@ -66,10 +71,15 @@ run:
 `./run.sh <collect_option> <number_modules> <start_at>`
 
 * collect_option (default == code): 
-    * "code": for collecting the javascript from the websites
+    * "code": for collecting the code from the modules
     * "sources": for collecting urls from [here](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md). 
-* number_modules (default = 1000): number of sites to download (only valid when collect_option = code)
+* number_modules (default = 1000): number of modules to download 
 * start_at (default = 1): position of the npmsToDownloadRaw.md list (./input/) to start downloading the packages (only valid when collect_option = code)
+
+
+If collect_option is sources then the output is stored in the collect/input directory (as it will be used as input for collecting the sources)
+If collect_option is code then the output is stored in the collect/output directory and the logs are stored in the logs/output directory.
+
 
 
 ### WEB
@@ -91,12 +101,19 @@ run:
     * if collection_option is "code": position of the urlsToVisit.txt list (./input/) to start visiting the urls
     * if collection_option is "sources": position of [Majestic Million service](https://de.majestic.com/reports/majestic-million?) list (./input/) to start retrieving urls
 
+If collect_option is sources then the output is stored in the collect/input directory (as it will be used as input for collecting the sources)
+If collect_option is code then the output is stored in the collect/output directory and the logs are stored in the logs/output directory.
+
+
+Note: if something fails while retrieving javascript from the web the log whill say that the operation failed even if some files where collected successfully
+
+
 ## Scripts
 
 
-init input, output and logs: `sudo ./scripts/init.sh`
+init input, output and logs: `./scripts/init.sh`
 
-clean input, output and logs: `sudo ./scripts/clean.sh`
+clean input, output and logs: `./scripts/clean.sh`
 
 
 
