@@ -1,0 +1,6 @@
+Update the ../scripts/init.sh to create a dir in the output folder for the output
+
+mkdir -p -- "./output/BENCHMARK"
+
+where BENCHMARK is the name of the new sub module.
+

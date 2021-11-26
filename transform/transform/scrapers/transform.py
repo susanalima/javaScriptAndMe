@@ -15,3 +15,6 @@ if __name__ == "__main__":
         javascript2img.transform_input(globals_['TRANSFORM_INPUT_DIR'], transformedFiles)
     else:
         print("Invalid suffix.")
+
+
+# add new elif for new tools
