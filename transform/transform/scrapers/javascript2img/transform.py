@@ -5,7 +5,7 @@ import utils
 """ Dictionay storing all the global variables """
 globals_ = utils.load_globals()
 
-"""" Suffix to label the file as transformed by JvaScript2img """
+"""" Suffix to label the file as transformed by javaScript2img """
 SUFFIX = globals_['JAVASCRIPT2IMG']
 
 """ Path to ouput directory """
@@ -16,7 +16,7 @@ def go_back(driver):
     """ Go back to initial page (after obfuscating the page is redirected)
 
     Args:
-        driver (webdriver) : Driver used for scrapping the site
+        driver (webdriver) : driver used for scrapping the site
     """
     driver.get(globals_['JS2IMG_URL'])
 
@@ -25,9 +25,9 @@ def transform(driver, input, fileId):
     """ Transform code by scrapping the JavaSript2img site
 
     Args:
-        driver (webdriver): Browser for scrapping the site
-        input (str): Content to be transformed (code)
-        fileId (str): Id of file to be transformed
+        driver (webdriver): browser for scrapping the site
+        input (str): content to be transformed (code)
+        fileId (str): id of file to be transformed
     
     Returns:
         boolean: True if input is successfully transformed, False otherwise
@@ -56,8 +56,8 @@ def transform_input(directory, transformedFiles):
     """ Transform all files in a given directory with the JavaScript2img obfuscator (by scrapping the site: http://javascript2img.com/)
 
     Args:
-        directory (str): Given directory (contains js files to be transformed)
-        processedFiles (list) : List of files that were previously transformed
+        directory (str): given directory (contains js files to be transformed)
+        transformedFiles (list) : list of files that were previously transformed
     """
 
     driver = utils.setup_driver(globals_['JS2IMG_URL'])

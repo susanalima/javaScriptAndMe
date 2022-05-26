@@ -50,7 +50,7 @@ run:
 `./run.sh <config_file>`
 
 where:
-* config_file: configuration file - "1.json" (default), "2.json", "3.json", "4.json", "5.json" or "6.json"
+* config_file: configuration file - "1.json" (default), "2.json", "3.json" or "4.json"
     * see [map.txt](./transform/transform/jscrambler/map.txt) for details on configuration.
 
 
@@ -101,10 +101,11 @@ where:
     * terser: to use terser minifier
     * uglify: to use Uglify-js minifier
     * yuicompressor: to use Yui Compressor minifier
+
 * config_file: configuration file
-    * javascript-obfuscator: "1.json", "2.json", "3.json", "4.json" or "5.json"
-    * js-obfuscator: "1.json" or "2.json"
-    * defendjs: "1.sh", "2.sh", "3.sh" or "4.sh"
+    * javascript-obfuscator: "1.json", "2.json", "3.json" or "4.json"
+    * js-obfuscator: "1.json", "2.json" or "3.json"
+    * defendjs: "1.sh" or "2.sh"
     * jsobfu: "1.json", "2.json" or "3.json"
 
 

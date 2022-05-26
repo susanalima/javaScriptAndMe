@@ -14,7 +14,7 @@ def load_globals():
     """ Read content from globals file
 
     Returns:
-        dict: fDictionary containing the content of the globals file
+        dict: dictionary containing the content of the globals file
     """
     with open(GLOBALS_FILE) as f:
         data = json.load(f)
@@ -28,7 +28,7 @@ def build_output_dir(suffix):
     """ Build output directory
 
     Args:
-        sufix (str): Label of the tool
+        sufix (str): label of the tool
 
     Returns:
         str: output directory
@@ -40,7 +40,7 @@ def get_file_id(fileName):
     """ Get file name without extension
 
     Args:
-        fileName (str): Name of the file (with extension)
+        fileName (str): name of the file (with extension)
 
     Returns:
         str: filename without file extension
@@ -53,7 +53,7 @@ def read_from_file(inputFileDir):
     """ Read file contents
 
     Args:
-        inputFileDir (str): Path to file
+        inputFileDir (str): path to file
 
     Returns:
         str: content of the specified file
@@ -67,9 +67,9 @@ def write_to_file(outputFileDir, data, mode=globals_['DEFAULT_WRT_MODE']):
     """ Write data to file
 
     Args:
-        outputFileDir (str): Path to file
-        data (str): Data to write in the file
-        mode (str): File open mode (w by default)
+        outputFileDir (str): path to file
+        data (str): data to write in the file
+        mode (str): file open mode (w by default)
 
     Returns:
         str: result of writting the data to the file
@@ -79,15 +79,18 @@ def write_to_file(outputFileDir, data, mode=globals_['DEFAULT_WRT_MODE']):
         return outputFile.write(data)
 
 
-def get_transformed_files(transformFlag):
+def get_transformed_files(suffix):
     """ Get list of all the files that were previously transformed (stored in ./logs/transformed/transformed.txt )
 
+    Args:
+        suffix (str): Label of the tool used
+
     Returns:
-        list: All files previously transformed
+        list: all files previously transformed
     """
 
     try: 
-        logFileDir = get_log_file_dir(transformFlag)
+        logFileDir = get_log_file_dir(suffix)
         transformedFiles = []
         logLines = read_from_file(logFileDir).splitlines()
         for line in logLines:
@@ -100,6 +103,15 @@ def get_transformed_files(transformFlag):
 
 
 def get_log_file_dir(suffix):
+    """ Get directory for the logs file
+
+    Args:
+        suffix (str): Label of the tool used
+
+    Returns:
+        str: directory of the logs file
+    """
+
     return globals_['TOOLS_LOG_DIR'] + suffix + globals_['DEFAULT_SEPARATOR'] + globals_['DEFAULT_CONFIG'] + globals_['LOG_FILE_EXTENSION']
 
 
@@ -107,7 +119,7 @@ def write_to_transformed_log_file(fileName):
     """ Write data to ../logs/input/transformed/transformed.txt
 
     Args:
-        fileName (str): Name of file transformed
+        fileName (str): name of file transformed
     """
 
     data = fileName + globals_['LOG_LINE_BREAK']
@@ -119,6 +131,9 @@ def write_to_transformed_log_file(fileName):
 
 def setup_driver(url):
     """ Setup browser for scrapping the site
+
+    Args:
+        url (string): Url for the website visited by the browser
 
     Returns:
         webdriver: Chrome driver
@@ -138,7 +153,7 @@ def find_element(driver, xpath):
     """ Find element by xpath
 
     Args:
-        driver (webdriver): Driver used for scrapping the site
+        driver (webdriver): driver used for scrapping the site
         xpath (str): Xpath to find the element
 
     Returns:
@@ -159,8 +174,10 @@ def send_input(driver, input, taXpath, btnXpath):
         * click button to obfuscate
 
     Args:
-        driver (webdriver) : Driver used for scrapping the site
-        input (str): Code to be transformed
+        driver (webdriver) : driver used for scrapping the site
+        input (str): code to be transformed
+        taXpath (str): Xpath to the input text area
+        btnXpath (str): Xpath to the input submit button
     """
 
     taInput = find_element(driver,taXpath)
@@ -177,7 +194,7 @@ def wait(seconds = globals_['DEFAULT_WAITING_TIME']):
     """ Wait for specified seconds
 
     Args:
-        seconds (number): Amount of seconds to wait
+        seconds (number): amount of seconds to wait
     """
 
     time.sleep(seconds)
@@ -189,8 +206,9 @@ def get_output(driver, taXpath):
         * retrieve its value
 
     Args:
-        driver (webdriver) : Driver used for scrapping the site
-    
+        driver (webdriver) : driver used for scrapping the site
+        taXpath (str): Xpath to the output text area
+
     Returns:
         str: transformed code
     """
@@ -206,7 +224,7 @@ def build_log_data_on_success(fileId):
     """ Build and format log data in case of successful operation
 
     Args:
-        fileId (str): Id of file transformed
+        fileId (str): id of file transformed
 
     Returns:
         str: Formatted log data 
@@ -221,8 +239,8 @@ def build_log_data_on_failure(fileId, error):
     """ Build and format log data in case of failed operation
 
     Args:
-        fileId (str): Id of file transformed
-        error (str): Error message
+        fileId (str): id of file transformed
+        error (str): error message
 
     Returns:
         str: Formatted log data 
@@ -237,9 +255,9 @@ def write_to_log_on_failure(fileId, logFileDir, error = globals_['DEFAULT_ERROR'
     """ Write log data to log file in case of failed operation
 
     Args:
-        fileId (str): Id of file transformed
-        logFileDir (str): Path to log directory (Unknown reason by default)
-        error (str): Error message
+        fileId (str): id of file transformed
+        logFileDir (str): path to log directory (Unknown reason by default)
+        error (str): error message
     """
 
     logData = build_log_data_on_failure(fileId, error)
@@ -251,9 +269,9 @@ def write_to_log_on_success(fileId, logFileDir):
     """ Write log data to log file in case of successful operation
 
     Args:
-        fileId (str): Id of file transformed
-        logFileDir (str): Path to log directory
-        error (str): Error message
+        fileId (str): id of file transformed
+        logFileDir (str): path to log directory
+        error (str): error message
     """
 
     logData = build_log_data_on_success(fileId)

@@ -18,7 +18,7 @@ def concent_data_use(driver):
     """ Accept data use pop up
 
     Args:
-        driver (webdriver): Driver used for scrapping the site
+        driver (webdriver): driver used for scrapping the site
     """
 
     concentBtn = utils.find_element(driver,globals_['DL_CONCENT_BTN_XPATH'])
@@ -31,7 +31,7 @@ def clear_input_and_output(driver):
         * retrieve its value
 
     Args:
-        driver (webdriver) : Driver used for scrapping the site
+        driver (webdriver) : driver used for scrapping the site
     """
 
     clearBtn = utils.find_element(driver,globals_['DL_CLEAR_INPUT_AND_OUTPUT_BTN_XPATH'] )
@@ -42,9 +42,9 @@ def transform(driver, input, fileId):
     """ Transform code by scrapping the Daft Logic site
 
     Args:
-        driver (webdriver): Browser for scrapping the site
-        input (str): Content to be transformed (code)
-        fileId (str): Id of file to be transformed
+        driver (webdriver): browser for scrapping the site
+        input (str): content to be transformed (code)
+        fileId (str): id of file to be transformed
     
     Returns:
         boolean: True if input is successfully transformed, False otherwise
@@ -73,8 +73,8 @@ def transform_input(directory, transformedFiles):
     """ Transform all files in a given directory with the Daft Logic obfuscator (by scrapping the site: https://www.daftlogic.com/projects-online-javascript-obfuscator.htm)
 
     Args:
-        directory (str): Given directory (contains js files to be transformed)
-        processedFiles (list) : List of files that were previously transformed
+        directory (str): given directory (contains js files to be transformed)
+        transformedFiles (list) : list of files that were previously transformed
     """
 
     driver = utils.setup_driver(globals_['DL_URL'])
