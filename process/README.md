@@ -1,4 +1,11 @@
-## SETUP
+# Processor
+
+The Processor is implemented in Node.js, and is responsible for processing JavaScript code to ensure the quality of the dataset. This processing aims to discard minified files; duplicated files; and unparsable code. Additionally, files are also excluded if they are empty or if there is a timeout in the processing. 
+
+This process requires two steps, that are executed by running the module with different arguments. First, filter minified files and compute the context-triggered piecewise hash for the minified version of each file. Secondly, Compute the similarity scores between each file and the remaining files in the dataset, removing any duplicates.
+
+
+## Setup
 
 
 1. Install [docker](https://docs.docker.com/get-docker/).
@@ -23,7 +30,7 @@
     `./scripts/init.sh`
   
 
-## BUILD and RUN
+## Build and Run
 
 `cd ./process`
 
@@ -59,7 +66,7 @@ clean input, output and logs: `./scripts/clean.sh`
 
 
 
-## PROJECT STRUCTURE
+## Structure
 
 ```src
 ├── process
