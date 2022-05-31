@@ -1,20 +1,39 @@
 # Collector
 
-
-The Collector is responsible for collecting JavaScript. It implements three sub-modules that collect code from three different sources: websites; repositories on GitHub; and NPM packages. However, it can be extended to collect code from other sources if required. For each source, the collector implements a module that can be built and ran independently. Each module has two operating modes:
-* sources: instructs the Collector that it should retrieve a list of sources from where the code will be collected.
-* code: instructs the Collector that it should walk-through a list of sources to collect their code. It is not required that this list is retrieved using the sources option, however it must follow the same format.
-
-
-\textbf{Websites Collector.}  Client-side JavaScript can be obtained by crawling different websites, allowing a closer representation of JavaScript in the wild. The code can be collected by extracting inline scripts or by downloading code referenced by external files in the website's HTML. The \textbf{sources} option of this sub-module retrieves a list of sites  from the \textit{Majestic Million}~\footnote{\href{https://de.majestic.com/reports/majestic-million}{https://de.majestic.com/reports/majestic-million}} service. This service offers a ranking of the top sites worldwide free of charge. To accomplish this, it scraps the \emph{Majectic Million} website using Python and \textit{BeautifulSoup}~\footnote{\href{https://pypi.org/project/beautifulsoup4/}{https://pypi.org/project/beautifulsoup4/}} to retrieve the list of sites to visit. The \textbf{code} option allows the collection of the JavaScript code from a list of websites provided. This is done with a scraper also implemented in Python and using \textit{Selenium}~\footnote{\href{https://pypi.org/project/selenium/}{https://pypi.org/project/selenium/}} to visit each site. After allowing the loading of dynamically generated code for at most five seconds, the scraper parses the HTML code using \textit{BeautifulSoup} to extract the script tags and their content. Inline scripts are copied to files, and external references are downloaded. The number of sites to visit can be configured in both operating modes. The implementation of this sub-module makes use of the latest version of the Chromium webdriver~\footnote{href{https://chromedriver.chromium.org/}{https://chromedriver.chromium.org/}}, each is installed inside the Docker to be able to visit the websites.
+The Collector, as the name suggests, is responsible for collecting JavaScript code. This is done with three different and independent sub-modules that collect code from three sources: websites; repositories on GitHub; and NPM packages. Each module has two operating modes:
+* _sources_: instructs the Collector that it should retrieve a list of sources from where the code will be collected (e.g sites to visit)
+* _code_: instructs the Collector that it should walk-through a list of sources to collect their code. It is not required that this list is retrieved using the sources option, however it must follow the same format.
 
 
-__GitHub Collector.__ Software hosting platforms, such as GitHub, contain a large variety of code for open-source websites, applications, and other programs. The _sources_ option of this sub-module collects a list of repositories to clone. This can be configured to retrieve three different types of JavaScript repositories available on GitHub - browser extensions, programs written in vanilla JavaScript, and repositories containing server-side code. This is done by issuing requests to GitHub's REST API to retrieve the URLS of a desired number of repositories of one of these types. The _code_ option iterates over the list of repositories and clones them. 
+-<p align="center">
+  <img  src="https://user-images.githubusercontent.com/36470825/171268354-54d43306-1669-4b1d-8aab-58a469ca58b3.png">
+  <p align="center">Fig1. Collector's Architecture.
+</p>
+</p>
 
 
-__NPM Collector.__ Package managers such as NPM offer the possibility to easily install libraries to use in various projects. The \textbf{sources} option of this sub-module parses a markdown from a \textit{GitHub} gist~\footnote{\href{https://gist.github.com/anvaka/8e8fa57c7ee1350e3491}{https://gist.github.com/anvaka/8e8fa57c7ee1350e3491}} that contains a list with frequently used \textit{NPM} packages. This markdown must be manually retrieved from the repository and added to the input folder inside the tool. The \textbf{code} option goes through this list of repositories and automatically downloads the libraries.
+
+## Websites Collector
+
+The _sources_ option retrieves a list of sites from the [Majestic Million](https://de.majestic.com/reports/majestic-million}{https://de.majestic.com/reports/majestic-million) service. To do so, it scraps the Majectic Million website using Python and [BeautifulSoup](https://pypi.org/project/beautifulsoup4/). 
+
+The _code_ option allows the collection of the JavaScript code from a list of websites. This is done with a scraper also implemented in Python and using [Selenium](https://pypi.org/project/selenium/}{https://pypi.org/project/selenium/) to visit each one. After allowing the loading of dynamic scripts for at most five seconds, the scraper parses the HTML code using BeautifulSoup to extract the script tags and their content.
+
+## GitHub Collector
+
+The _sources_ option collects a list of repositories to clone. This can be configured to retrieve three different types of JavaScript repositories available on GitHub - browser extensions, programs written in vanilla JavaScript, and repositories containing server-side code. 
+
+The _code_ option iterates over the list of repositories and clones them. 
 
 
+## NPM Collector
+
+The _sources_ option of this sub-module parses a markdown from a [GitHiu Gist](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491) that contains a list with frequently used \NPM packages. This markdown must be manually retrieved from the repository and added to the input folder inside the tool. 
+
+The _code_ option iterates over this list of libraries and automatically downloads them.
+
+
+# Setup and Run
 
 ## Setup
 
@@ -44,7 +63,33 @@ __NPM Collector.__ Package managers such as NPM offer the possibility to easily 
   
 ## Build and Run
 
-### GITHUB
+### Websites Collector
+
+`cd ./web`
+
+build: 
+`./build.sh`
+
+run: 
+
+`./run.sh <collect_option> <number_urls> <start_at>`
+
+* collect_option (default = code):
+    * "code": for collecting the javascript from the websites
+    * "sources": for collecting urls from the [Majestic Million service](https://de.majestic.com/reports/majestic-million?)
+* number_urls (default: 10000): number of sites to visit / collect
+* start_at (default = 1):
+    * if collection_option is "code": position of the urlsToVisit.txt list (./input/) to start visiting the urls
+    * if collection_option is "sources": position of [Majestic Million service](https://de.majestic.com/reports/majestic-million?) list (./input/) to start retrieving urls
+
+If collect_option is sources then the output is stored in the collect/input directory (as it will be used as input for collecting the sources)
+If collect_option is code then the output is stored in the collect/output directory and the logs are stored in the logs/output directory.
+
+
+Note: if something fails while retrieving javascript from the web the log whill say that the operation failed even if some files where collected successfully
+
+
+### GitHib Collector
 
 `cd ./github`
 
@@ -72,9 +117,7 @@ If collect_option is sources then the output is stored in the collect/input dire
 If collect_option is code then the output is stored in the collect/output directory and the logs are stored in the logs/output directory.
 
 
-
-
-### NPM
+### NPM Collector
 
 Go [here](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md) and copy the raw version of the file to npmsToDownloadRaw.md (./input/)
 
@@ -97,33 +140,6 @@ run:
 
 If collect_option is sources then the output is stored in the collect/input directory (as it will be used as input for collecting the sources)
 If collect_option is code then the output is stored in the collect/output directory and the logs are stored in the logs/output directory.
-
-
-
-### WEB
-
-`cd ./web`
-
-build: 
-`./build.sh`
-
-run: 
-
-`./run.sh <collect_option> <number_urls> <start_at>`
-
-* collect_option (default = code):
-    * "code": for collecting the javascript from the websites
-    * "sources": for collecting urls from the [Majestic Million service](https://de.majestic.com/reports/majestic-million?)
-* number_urls (default: 10000): number of sites to visit / collect
-* start_at (default = 1):
-    * if collection_option is "code": position of the urlsToVisit.txt list (./input/) to start visiting the urls
-    * if collection_option is "sources": position of [Majestic Million service](https://de.majestic.com/reports/majestic-million?) list (./input/) to start retrieving urls
-
-If collect_option is sources then the output is stored in the collect/input directory (as it will be used as input for collecting the sources)
-If collect_option is code then the output is stored in the collect/output directory and the logs are stored in the logs/output directory.
-
-
-Note: if something fails while retrieving javascript from the web the log whill say that the operation failed even if some files where collected successfully
 
 
 ## Scripts
