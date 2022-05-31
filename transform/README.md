@@ -2,6 +2,18 @@
 
 The Transformer is responsible for transforming a set of JavaScript files received as input. It is composed of three sub-modules: Scrapers; Jscrambler; and Others.
 
+\textbf{Scrapers.} This sub-module obfuscates JavaScript with two different tools: \textbf{\textit{DaftLogic}}~\footnote{\href{https://www.daftlogic.com/projects-online-javascript-obfuscator.htm}{https://www.daftlogic.com/projects-online-javascript-obfuscator.htm}} and \textbf{\textit{JavaScript2img}}~\footnote{\href{https://javascript2img.com/}{https://javascript2img.com/}}. These tools are available online, therefore we implement two bots, one for each tool, that visit and interact with the websites to transform the files. In general, this is done by copying a file's content to a \textit{textarea}, clicking a button and retrieving the obfuscated output from another \textit{textarea}. This requires additional waiting time, not only to allow the website to load but also to wait for the code's obfuscation. The implementation of this sub-module makes use of the latest version of the Chromium webdriver~\footnote{\href{https://chromedriver.chromium.org/}{https://chromedriver.chromium.org/}}, which is installed inside a Docker container.
+% The process of transforming the code with these tools is very time-consuming, and often fails for larger files.
+
+\textbf{Jscrambler.} This sub-module implements code to obfuscate JavaScript with the Jscrambler code integrity solution~\footnote{\href{https://jscrambler.com/products/code-integrity/javascript-obfuscation}{https://jscrambler.com/products/code-integrity/javascript-obfuscation}}, which is a commercial product. Although this tool is available on \textit{NPM}, it requires additional configuration for its use, therefore we implement it as a separate module from the other tools. %The \textbf{Transformer} implements four different configurations for this tool, but more can be added.
+
+
+\textbf{Others.} This sub-module implements code for the remaining tools available in the \textbf{Transformer}. Most of the tools used are open-source and available via \emph{NPM} packages, which means they are easily accessible and simple to use.  Some of the tools can be customized with various configurations. Our tool implements code to easily interact with these tools - wrapper code -, offering some predefined configurations. The transformer implements wrapper code for five different obfuscators - \textbf{\textit{javascript-obfuscator}}~\cite{javascriptObfuscator}, \textbf{\textit{defendjs}}~\cite{defendjs}, \textbf{\textit{js-obfuscator}}~\cite{jsObfuscator}, \textbf{\textit{JSObfu}}~\cite{jsobfu}, \textbf{\textit{jsfuck}}~\cite{jsfuck} -, and five minifiers - \textbf{\textit{babel-minify}}~\cite{babel}, \textbf{\textit{Google Closure Compiler}}~\cite{closureCompiler}, \textbf{\textit{terser}}~\cite{terser}, \textbf{\textit{Uglify}}~\cite{uglifyjs}, \textbf{\textit{Yui Compressor}}~\cite{yuiCompressor}.
+
+
+![image](https://user-images.githubusercontent.com/36470825/171264477-8baa5502-d382-498f-aecf-dd0280f8acd5.png)
+Tab1. Obfuscators and transformation they apply (based on their documentation and manual assessment),
+
 ## Setup
 
 1. Install [docker](https://docs.docker.com/get-docker/).
@@ -97,7 +109,6 @@ where:
     * javascript-obfuscator: to use javascript-obfuscator obfuscator 
     * jfogs: to use jfogs obfuscator
     * js-obfuscator: to use js-obfuscator obfuscator
-    * node-obf: to use node-obf obfuscator
     * defendjs: to use defendjs obfuscator
     * jsfuck: to use jsfuck obfuscator
     * jsobfu: to use jsobfu obfuscator
