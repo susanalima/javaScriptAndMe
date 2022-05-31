@@ -1,5 +1,8 @@
-## SETUP
+# Transformer
 
+The Transformer is responsible for transforming a set of JavaScript files received as input. It is composed of three sub-modules: Scrapers; Jscrambler; and Others.
+
+## Setup
 
 1. Install [docker](https://docs.docker.com/get-docker/).
 
@@ -34,9 +37,9 @@ SECRET_KEY=_YOUR_SECRET_KEY_ (secret key for your jscrambler account)
 APPLICATION_ID=APPLICATION_ID_ (appplication id for application in your jscrambler account)
 ```
 
-## BUILD and RUN
+## Build and Run
 
-### JSCRAMBLER
+### Jscrambler
 
 `cd transform/jscrambler`
 
@@ -53,7 +56,7 @@ where:
     * see [map.txt](./transform/transform/jscrambler/map.txt) for details on configuration.
 
 
-### SCRAPERS
+### Scrapers
 
 `cd transform/scrapers`
 
@@ -75,7 +78,7 @@ Note: code obfuscated with javascript2img often is broken/unparsable
 
 Note: obfuscating with these tools takes a long time
 
-### OTHERS
+### Others
 
 
 `cd transform/others`
@@ -116,7 +119,7 @@ where:
 `sudo ./scripts/clean.sh`
 
 
-## PROJECT STRUCTURE
+## Structure
 
 ```src
 ├── transform
@@ -162,7 +165,7 @@ _transform_ - Responsible for transforming a the files. It reads the files in _i
 
         - _minifiers_ - Code for each minifier([babel-minify](babeljs.io/docs/en/babel-minify), [Google Closure Compiler](https://developers.google.com/closure/), [terser](https://github.com/terser/terser), [UglifyJs](https://github.com/mishoo/UglifyJS), and [Yui Compressor](http://yui.github.io/yuicompressor/))
         
-        - _obfuscators_ - Code for each obfuscator ([javascript-obfuscator](https://github.com/javascript-obfuscator/javascript-obfuscator), [jfogs](https://github.com/zswang/jfogs), [js-obfuscator](https://github.com/caiguanhao/js-obfuscator), [node-obf](https://github.com/wearefractal/node-obf), [defendjs](https://github.com/alexhorn/defendjs), [jsfuck](https://github.com/aemkei/jsfuck). and [jsObfu](https://github.com/rapid7/jsobfu/) )
+        - _obfuscators_ - Code for each obfuscator ([javascript-obfuscator](https://github.com/javascript-obfuscator/javascript-obfuscator), [js-obfuscator](https://github.com/caiguanhao/js-obfuscator), [defendjs](https://github.com/alexhorn/defendjs), [jsfuck](https://github.com/aemkei/jsfuck). and [jsObfu](https://github.com/rapid7/jsobfu/) )
 
 - _scrapers_ - Constains the code for scrapping online tools. Uses Python with Selenium.
 
