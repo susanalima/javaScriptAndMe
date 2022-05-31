@@ -1,6 +1,6 @@
 # JavaScript&Me
 
-An open-source tool for the automatic collection, processing, and transformation of JavaScript code. This tool aims at facilitating the process of collecting and curating a large corpus of JavaScript code to potentiate and facilitate new research on JavaScript related tasks. The tool considers multiple sources of code and a diverse set of transformation tools. It can be easily customized to fit different requirements. 
+An open-source tool for the automatic collection, processing, and transformation of JavaScript code. This tool aims at facilitating the process of collecting and curating large sets of JavaScript files.
 
 ## Requirements
 
@@ -9,12 +9,12 @@ The only requirements are to have Docker installed in your system and internet c
 
 ## Architecture
 
-Regarding the design of the tool, our goal was to choose an architecture of independent modules, so that the user is able to easily choose the modules they desire, providing an easy customization experience. We also allow the easy customization of some parameters while running the tool - e.g number of websites to visit - in addition to a simple way to configure the parameters of the obfuscation tools contained in the tool - mostly through configuration files written in JSON. We also choose to use Docker containers to allow more interoperability with different systems and to have a general approach for running the tool (build and run).
+Regarding the design of the tool, we chose an architecture of independent modules to provide an easy customization experience. We also choose to use Docker containers to allow the interoperability with various systems and to have a general approach for running the tool.
 
 ![workflow2](https://user-images.githubusercontent.com/36470825/171258994-e4f73d86-8e73-4e81-a4ac-1fa91baed97c.png)
 **Fig1**. Architecture.
 
-As displayed in Fig1, the tool is composed of three main modules - [Collector](./collect/README.md), [Processor](./process/README.md), and [Transformer](./transform/README.md) -, each with its responsibilities. The tool can be applied as a pipeline, starting by collecting code with the Collector, processing it with the Processor and transforming it with the Transformer. However, the modules were implemented to be independent from each other. This means that we can use it without using all its modules and sub-modules. For example, we can  process a dataset with the Processor that was not built with Collector. We just have to make sure that the input of a module is the one it expects.
+As displayed in Fig1, the tool is composed of three main modules - [Collector](./collect/README.md), [Processor](./process/README.md), and [Transformer](./transform/README.md). The tool can be applied as a pipeline, starting by collecting code with the Collector, curating it with the Processor and transforming it with the Transformer. The modules are implemented to be independent from each other, which means that we can use it without using all its modules and sub-modules.
 
 The details of each moduel including the process to setup and run them are in the following pages:
 * [Collector](./collect/README.md)
@@ -45,7 +45,7 @@ Finally, in regards to the Transformer we argue that the tests each independent 
 
 ## Limitations
 
-We identify some limitations to our tool. Some are related to its implementation, therefore can be improved in future work. Others are related to external libraries that we use, namely the tools to transform the code. Our tool can be used to retrieve large amounts of code. However, it is limited to the device's memory as it stores the created dataset locally.
+We identify some limitations to our tool. Our tool can be used to retrieve large amounts of code. However, it is limited to the device's memory as it stores the created dataset locally.
 
 In the Collector module, the major limitation found is the time required to visit a website, as we set some periods of sleep throughout the code to allow the dynamic loading of JavaScript. Additionally, we do not interact with the page or navigate the website, which could allow the collection of more code per website. It should also be taken into account that code collected from websites is often minified, and if there is the need to process it with the Processor, the majority of code collected will be excluded. This means we need to collect a large corpus of code from websites to be able to build a reasonably sized dataset. Finally, code collected from NPM and GitHub often include files that are not JavaScript code, and these files are only discarded by the Processor. This is only an issue if the Processor is not applied after the Collector.
 
@@ -53,15 +53,11 @@ In the Processor module, we acknowledge the fact that processing the files can b
 
 Finally, in the Transformer, we found several limitations, primarily due to the obfuscators and minifiers used:
 
-* Some obfuscators, such as jsfuck and JavaScript2img, often break the code, generating unparsable code.
-* JSObfu tends to output very simple obfuscated code if the input file is small (less than 30 bytes), which is arguable not obfuscated - it is different from the original code but the behavior of the code is not concealed. Example, the code `$user_is_supporter = 1;`was transformed to `var y = 'k'.length`.
+* jsfuck and JavaScript2img often break the code
+* JSObfu tends to output very simple obfuscated code if the input file is small (less than 30 bytes), which is arguable not obfuscated - it is different from the original but the behavior of the code is not concealed. Example, the code `$user_is_supporter = 1;`was transformed to `var y = 'k'.length`.
 * Some obfuscators, such as jsfuck, output extremely large files, which could lead to memory issues. We recommend using them with files smaller than 20 kB.
-* Jscrambler is not an open-source obfuscator, requiring the use of valid credentials to use it.
-* The scrapers - DaftLogic and JavaScript2img can take a long time to transform a file as the tool waits for specific elements in the page to be available.
+* The scrapers can take a long time to transform a file
 * The scrapers often fail due to errors in the page or the size of the input file.
-* The scrapers may fail if there are changes in the websites, as the interactions made with the page are dependent on hardcoded metadata, such as input ids. 
-* The minifiers can not be configured without changing our tool's source code.
-* The module does can not be applied to transform entire applications, it only transforms individual files (this is a restriction but we argue that in the contexts were the tool would be more useful is not necessary to transform entire applications).
 
 ## Future Work
 
