@@ -66,7 +66,7 @@ Requires Docker.
 
     `chmod +x run.h`
 
-4. Run init script to create required directory structure (`sudo` required).
+4. Run init script to create required directory structure (`sudo` may be required).
 
     `./scripts/init.sh`
   
@@ -98,7 +98,7 @@ If collect_option is code then the output is stored in the collect/output direct
 Note: if something fails while retrieving javascript from the web the log whill say that the operation failed even if some files where collected successfully
 
 
-### GitHib Collector
+### GitHub Collector
 
 `cd ./github`
 
@@ -111,7 +111,7 @@ run:
 `./run.sh <collect_option> <number_repos> <source> <start_at>`
 
 * collect_option (default = code): 
-    * "code": for collecting the javascript from the websites
+    * "code": for cloning the repositories
     * "sources": for collecting urls from GitHub's REST API
 * number_repos (default = 1000): number of repositories to clone 
 * source (default = extensions):
