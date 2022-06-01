@@ -132,7 +132,6 @@ where:
 
 * suffix:
     * javascript-obfuscator: to use javascript-obfuscator obfuscator 
-    * jfogs: to use jfogs obfuscator
     * js-obfuscator: to use js-obfuscator obfuscator
     * defendjs: to use defendjs obfuscator
     * jsfuck: to use jsfuck obfuscator
