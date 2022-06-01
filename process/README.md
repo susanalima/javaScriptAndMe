@@ -39,13 +39,13 @@ Finally, empty files and files with one or fewer bytes are excluded.
 
     `chmod +x clean.sh`
 
-    In process subfolder:
+    In process subfolder (`ćd process`)
 
     `chmod +x build.sh`
 
-    `chmod +x run.h`
+    `chmod +x run.sh`
 
-4. Run init script to create required directory structure (`sudo` required).
+4. Run init script to create required directory structure (`sudo` may be required).
 
     `./scripts/init.sh`
   
@@ -67,6 +67,8 @@ run:
     * duplicated: for removing duplicated and generating unique ids and final output (should be run after running the minified option)
 * second_option:
     * similarity_score: int representing similarity threshold (should be 40) (if process_option is duplicated)
+
+First run the minified option and then the duplicated option.
 
 
 If process_option is minified:
