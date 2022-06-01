@@ -1,6 +1,6 @@
 # JavaScript&Me
 
-An open-source tool for the automatic collection, processing, and transformation of JavaScript code. This tool aims at facilitating the process of collecting and curating large sets of JavaScript files.
+An open-source tool for collecting, processing, and transforming JavaScript code. This tool aims at facilitating the process of collecting and curating large sets of JavaScript files for research.
 
 ## Requirements
 
@@ -45,7 +45,7 @@ Finally, in regards to the Transformer we argue that the tests each independent 
 
 ## Limitations
 
-We identify some limitations to our tool. Our tool can be used to retrieve large amounts of code. However, it is limited to the device's memory as it stores the created dataset locally.
+We identify some limitations to our tool. Our tool can be used to retrieve large amounts of code, however, it is limited to the device's memory.
 
 In the Collector module, the major limitation found is the time required to visit a website, as we set some periods of sleep throughout the code to allow the dynamic loading of JavaScript. Additionally, we do not interact with the page or navigate the website, which could allow the collection of more code per website. It should also be taken into account that code collected from websites is often minified, and if there is the need to process it with the Processor, the majority of code collected will be excluded. This means we need to collect a large corpus of code from websites to be able to build a reasonably sized dataset. Finally, code collected from NPM and GitHub often include files that are not JavaScript code, and these files are only discarded by the Processor. This is only an issue if the Processor is not applied after the Collector.
 
