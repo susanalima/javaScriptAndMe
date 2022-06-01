@@ -1,18 +1,39 @@
 # Transformer
 
-The Transformer is responsible for transforming a set of JavaScript files received as input. It is composed of three sub-modules: Scrapers; Jscrambler; and Others.
+The Transformer is responsible for transforming a set of JavaScript files, by minifying or obfuscating them. 
 
-\textbf{Scrapers.} This sub-module obfuscates JavaScript with two different tools: \textbf{\textit{DaftLogic}}~\footnote{\href{https://www.daftlogic.com/projects-online-javascript-obfuscator.htm}{https://www.daftlogic.com/projects-online-javascript-obfuscator.htm}} and \textbf{\textit{JavaScript2img}}~\footnote{\href{https://javascript2img.com/}{https://javascript2img.com/}}. These tools are available online, therefore we implement two bots, one for each tool, that visit and interact with the websites to transform the files. In general, this is done by copying a file's content to a \textit{textarea}, clicking a button and retrieving the obfuscated output from another \textit{textarea}. This requires additional waiting time, not only to allow the website to load but also to wait for the code's obfuscation. The implementation of this sub-module makes use of the latest version of the Chromium webdriver~\footnote{\href{https://chromedriver.chromium.org/}{https://chromedriver.chromium.org/}}, which is installed inside a Docker container.
-% The process of transforming the code with these tools is very time-consuming, and often fails for larger files.
-
-\textbf{Jscrambler.} This sub-module implements code to obfuscate JavaScript with the Jscrambler code integrity solution~\footnote{\href{https://jscrambler.com/products/code-integrity/javascript-obfuscation}{https://jscrambler.com/products/code-integrity/javascript-obfuscation}}, which is a commercial product. Although this tool is available on \textit{NPM}, it requires additional configuration for its use, therefore we implement it as a separate module from the other tools. %The \textbf{Transformer} implements four different configurations for this tool, but more can be added.
-
-
-\textbf{Others.} This sub-module implements code for the remaining tools available in the \textbf{Transformer}. Most of the tools used are open-source and available via \emph{NPM} packages, which means they are easily accessible and simple to use.  Some of the tools can be customized with various configurations. Our tool implements code to easily interact with these tools - wrapper code -, offering some predefined configurations. The transformer implements wrapper code for five different obfuscators - \textbf{\textit{javascript-obfuscator}}~\cite{javascriptObfuscator}, \textbf{\textit{defendjs}}~\cite{defendjs}, \textbf{\textit{js-obfuscator}}~\cite{jsObfuscator}, \textbf{\textit{JSObfu}}~\cite{jsobfu}, \textbf{\textit{jsfuck}}~\cite{jsfuck} -, and five minifiers - \textbf{\textit{babel-minify}}~\cite{babel}, \textbf{\textit{Google Closure Compiler}}~\cite{closureCompiler}, \textbf{\textit{terser}}~\cite{terser}, \textbf{\textit{Uglify}}~\cite{uglifyjs}, \textbf{\textit{Yui Compressor}}~\cite{yuiCompressor}.
+<p align="center">
+  <img  src="https://user-images.githubusercontent.com/36470825/171442603-a2006078-b410-4d47-930a-da254c31d4b8.png">
+  <p align="center">Fig1. Transformer's Architecture.
+</p>
+</p>
 
 
-![image](https://user-images.githubusercontent.com/36470825/171264477-8baa5502-d382-498f-aecf-dd0280f8acd5.png)
-Tab1. Obfuscators and transformation they apply (based on their documentation and manual assessment),
+It is composed of three sub-modules:
+* **Scrapers**: obfuscates JavaScript with twon online tools - [DaftLogic](https://www.daftlogic.com/projects-online-javascript-obfuscator.htm) and [JavaScript2img](https://javascript2img.com/}{https://javascript2img.com/). To use these tools we implemet a simple bot that visits and interacts with the websites.
+* **Jscrambler**: implements code to obfuscate JavaScript with the [Jscrambler code integrity solution](https://jscrambler.com/products/code-integrity/javascript-obfuscation), which is a commercial product. The sub-module implements four different configurations for this tool, but more can be added.
+* **Others**: implements code for the remaining tools available in the Transformer. Our tool implements code to easily interact with these tools - wrapper code -, offering some predefined configurations. The transformer implements wrapper code for five different obfuscators( see Fig2) and five minifiers:
+
+    * [javascript-obfuscator](https://github.com/javascript-obfuscator/javascript-obfuscator): it is an open-source obfuscator available on NPM. Our tool currently supports four configurations for this obfuscator, but more can be added.
+    * [defendjs](https://github.com/alexhorn/defendjs): it is an open-source obfuscator available on GitHub. Our tool currently supports two configurations for this obfuscator, but more can be added.
+    * [js-obfuscator](https://github.com/caiguanhao/js-obfuscator): it is an open-source obfuscator available on \NPM. Our tool currently supports three configurations for this obfuscator, but more can be added.
+    * [jsObfu](https://github.com/rapid7/jsobfu/): it is an open-source obfuscator available on RubyGems. It is configurable by setting the number of iterations, representing the number of times the code is obfuscated. Our tool is configured to only use one iteration, but this can be customized. 
+    * [jsfuck](https://github.com/aemkei/jsfuck): it is an open-source tool available on GitHub. It is not configurable.
+    * [babel-minify](babeljs.io/docs/en/babel-minify): it is an open-source minifier available on NPM. The minifier is configurable, however the wrapper code implemented makes use of predefined configurations for this tool, requiring its modification to be able to customize it.
+    * [Google Closure Compiler](https://developers.google.com/closure/): it is an open-source tool available on NPM. The configuration status is the same as in \textit{babel-minify}.
+    * [terser](https://github.com/terser/terser): it is an open-source minifier available on NPM. The configuration status is the same as in \textit{babel-minify}.
+    * [UglifyJs](https://github.com/mishoo/UglifyJS): it is an open-source minifier available on NPM. The configuration status is the same as in \textit{babel-minify}.
+    * [Yui Compressor](http://yui.github.io/yuicompressor/): it is an open-source minifier available on NPM.  The configuration status is the same as in \textit{babel-minify}.
+
+
+<p align="center">
+  <img  src="https://user-images.githubusercontent.com/36470825/171264477-8baa5502-d382-498f-aecf-dd0280f8acd5.png">
+  <p align="center">Fig2. Obfuscators and transformation they apply matrix (based on their documentation and manual assessment),
+
+</p>
+</p>
+
+
 
 ## Setup
 
