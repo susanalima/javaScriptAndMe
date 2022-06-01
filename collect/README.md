@@ -98,7 +98,7 @@ If collect_option is code then the output is stored in the collect/output direct
 Note: if something fails while retrieving javascript from the web the log whill say that the operation failed even if some files where collected successfully
 
 
-### GitHib Collector
+### GitHub Collector
 
 `cd ./github`
 
