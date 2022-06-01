@@ -132,7 +132,7 @@ def build_log_data_on_success(url):
     """
 
     currDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return globals_['LOG_HEADER'] + globals_['LOG_SEPARATOR'] + ulr + globals_['LOG_SEPARATOR'] + currDate + globals_['LOG_SEPARATOR'] + globals_['LOG_SUCCESS'] + globals_['LOG_SEPARATOR']  + globals_['LOG_TAIL'] + globals_['LOG_LINE_BREAK']
+    return globals_['LOG_HEADER'] + globals_['LOG_SEPARATOR'] + url + globals_['LOG_SEPARATOR'] + currDate + globals_['LOG_SEPARATOR'] + globals_['LOG_SUCCESS'] + globals_['LOG_SEPARATOR']  + globals_['LOG_TAIL'] + globals_['LOG_LINE_BREAK']
 
 
 
