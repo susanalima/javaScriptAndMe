@@ -23,7 +23,11 @@ To filter duplicated files we first minify them. If there are any parsing errors
 Finally, empty files and files with one or fewer bytes are excluded.
 
 
+# Setup and Run
 
+Note: to stop the scripts you need to find the container and kill it. use:
+* `docker ps` to find the container's id
+* `docker stop <CONTAINER_ID>` to stop the docker
 
 ## Setup
 
