@@ -42,7 +42,9 @@ The _code_ option iterates over this list of libraries and automatically downloa
 
 # Setup and Run
 
-Requires Docker.
+Note: to stop the scripts you need to find the container and kill it. use:
+* `docker ps` to find the container's id
+* `docker stop <CONTAINER_ID>` to stop the docker
 
 ## Setup
 

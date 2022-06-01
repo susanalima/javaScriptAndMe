@@ -72,6 +72,10 @@ APPLICATION_ID=APPLICATION_ID_ (appplication id for application in your jscrambl
 
 ## Build and Run
 
+Note: to stop the scripts you need to find the container and kill it. use:
+* `docker ps` to find the container's id
+* `docker stop <CONTAINER_ID>` to stop the docker
+
 ### Jscrambler
 
 `cd transform/jscrambler`
@@ -128,7 +132,6 @@ where:
 
 * suffix:
     * javascript-obfuscator: to use javascript-obfuscator obfuscator 
-    * jfogs: to use jfogs obfuscator
     * js-obfuscator: to use js-obfuscator obfuscator
     * defendjs: to use defendjs obfuscator
     * jsfuck: to use jsfuck obfuscator
