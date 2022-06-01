@@ -66,7 +66,7 @@ Requires Docker.
 
     `chmod +x run.h`
 
-4. Run init script to create required directory structure (`sudo` required).
+4. Run init script to create required directory structure (`sudo` may be required).
 
     `./scripts/init.sh`
   
