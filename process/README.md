@@ -2,7 +2,27 @@
 
 The Processor is implemented in Node.js, and is responsible for processing JavaScript code to ensure the quality of the dataset. This processing aims to discard minified files; duplicated files; and unparsable code. Additionally, files are also excluded if they are empty or if there is a timeout in the processing. 
 
-This process requires two steps, that are executed by running the module with different arguments. First, filter minified files and compute the context-triggered piecewise hash for the minified version of each file. Secondly, Compute the similarity scores between each file and the remaining files in the dataset, removing any duplicates.
+<p align="center">
+  <img  src="https://user-images.githubusercontent.com/36470825/171437314-ed9d534f-115f-4327-be44-589f086b20b6.png">
+  <p align="center">Fig1. Processor's Architecture.
+</p>
+</p>
+
+
+We consider file as minified if it presents at least one of the following characteristics:
+* A min.js extension. 
+* Less than 1\% of indentation characters.
+* On average, more than 100 characters per line.
+* More than 10\% of its lines have more than 240 characters.
+
+
+We consider two files as duplicated if they have a similarity score >= 40\%, in that case one of them is excluded. To compute this score, we use the [ctph.js](https://www.npmjs.com/package/ctph.js) library to compute the context-triggered piecewise hash for the minified version of each file and compare it with the ones computed for the previously processed files. 
+
+To filter duplicated files we first minify them. If there are any parsing errors in this process, the file is considered unparsable and it is excluded.
+
+Finally, empty files and files with one or fewer bytes are excluded.
+
+
 
 
 ## Setup
