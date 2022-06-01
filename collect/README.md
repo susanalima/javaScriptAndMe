@@ -1,25 +1,30 @@
 # Collector
 
-The Collector, as the name suggests, is responsible for collecting JavaScript code. This is done with three different and independent sub-modules that collect code from three sources: websites; repositories on GitHub; and NPM packages. Each module has two operating modes:
-* _sources_: instructs the Collector that it should retrieve a list of sources from where the code will be collected (e.g sites to visit)
-* _code_: instructs the Collector that it should walk-through a list of sources to collect their code. It is not required that this list is retrieved using the sources option, however it must follow the same format.
+The Collector, as the name suggests, is responsible for collecting JavaScript code. This is done with three different and independent sub-modules - Webistes Collector, GitHub collector, and NPM Collector - that collect code from three sources respectively: websites; repositories on GitHub; and NPM packages. 
 
-
--<p align="center">
+<p align="center">
   <img  src="https://user-images.githubusercontent.com/36470825/171268354-54d43306-1669-4b1d-8aab-58a469ca58b3.png">
   <p align="center">Fig1. Collector's Architecture.
 </p>
 </p>
 
+Each module has two operating modes:
+* _sources_: instructs the Collector that it should retrieve a list of sources from where the code will be collected (e.g sites to visit)
+* _code_: instructs the Collector that it should walk-through a list of sources to collect their code. It is not required that this list is retrieved using the sources option, however it must follow the same format.
 
 
 ## Websites Collector
 
-The _sources_ option retrieves a list of sites from the [Majestic Million](https://de.majestic.com/reports/majestic-million}{https://de.majestic.com/reports/majestic-million) service. To do so, it scraps the Majectic Million website using Python and [BeautifulSoup](https://pypi.org/project/beautifulsoup4/). 
+Collects code from websites (inline scripts and external references).
 
-The _code_ option allows the collection of the JavaScript code from a list of websites. This is done with a scraper also implemented in Python and using [Selenium](https://pypi.org/project/selenium/}{https://pypi.org/project/selenium/) to visit each one. After allowing the loading of dynamic scripts for at most five seconds, the scraper parses the HTML code using BeautifulSoup to extract the script tags and their content.
+The _sources_ option retrieves a list of sites from the [Majestic Million](https://de.majestic.com/reports/majestic-million}{https://de.majestic.com/reports/majestic-million) service by scraping the service using Python and [BeautifulSoup](https://pypi.org/project/beautifulsoup4/). 
+
+The _code_ option allows the collection of the JavaScript code from a list of websites. This is done with a scraper also implemented in Python and using [Selenium](https://pypi.org/project/selenium/}{https://pypi.org/project/selenium/). After allowing the loading of dynamic scripts for at most five seconds, the scraper parses the HTML code using BeautifulSoup to extract the script tags and their content.
+
 
 ## GitHub Collector
+
+Collects code from GitHub repositories.
 
 The _sources_ option collects a list of repositories to clone. This can be configured to retrieve three different types of JavaScript repositories available on GitHub - browser extensions, programs written in vanilla JavaScript, and repositories containing server-side code. 
 
@@ -28,12 +33,16 @@ The _code_ option iterates over the list of repositories and clones them.
 
 ## NPM Collector
 
+Collects code from NPM packages.
+
 The _sources_ option of this sub-module parses a markdown from a [GitHiu Gist](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491) that contains a list with frequently used \NPM packages. This markdown must be manually retrieved from the repository and added to the input folder inside the tool. 
 
 The _code_ option iterates over this list of libraries and automatically downloads them.
 
 
 # Setup and Run
+
+Requires Docker.
 
 ## Setup
 
