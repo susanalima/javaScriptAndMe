@@ -111,7 +111,7 @@ run:
 `./run.sh <collect_option> <number_repos> <source> <start_at>`
 
 * collect_option (default = code): 
-    * "code": for collecting the javascript from the websites
+    * "code": for cloning the repositories
     * "sources": for collecting urls from GitHub's REST API
 * number_repos (default = 1000): number of repositories to clone 
 * source (default = extensions):
