@@ -63,6 +63,7 @@ Finally, in the Transformer, we found several limitations, primarily due to the 
 
 * Validation
 * Refactoring
+* Performance analysis
 
 
 ## Motivation
