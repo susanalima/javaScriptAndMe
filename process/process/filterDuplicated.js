@@ -16,6 +16,8 @@ function process_input(fileDir, fileSize, hash, folder){
     const destinationDir = Utils.build_destination_dir(fileDir, folder);
     let logData = "";
     try {
+        if(fileSize * globals.BYTE_TO_KILOBYTE < 1)
+            throw new Error("File smaller than 1 byte" )
         Utils.copy_file(fileDir, destinationDir);
         logData = Utils.build_logs_log_data_on_success(fileDir, destinationDir, fileSize, hash);
         Utils.write_to_logs_log_file(logData)
