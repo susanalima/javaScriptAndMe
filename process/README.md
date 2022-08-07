@@ -67,12 +67,18 @@ run:
 `./run.sh <process_option> <second_option>`
 
 * process_option:
-    * minified: for filtering transformed files and generating the hash values
-    * duplicated: for removing duplicated and generating unique ids and final output (should be run after running the minified option)
+    * step1 (default): for filtering transformed files and generating the hash values
+    * step2: for removing duplicated and generating unique ids and final output (should be run after running the minified option)
 * second_option:
-    * similarity_score: int representing similarity threshold (should be 40) (if process_option is duplicated)
+    * true (default): 
+        * step1: filters minified files and computes hash values
+        * step2: filters duplicated files and generates unique ids and the final dataset
+    * false: 
+        * step1: computes hash values (without filtering minified files)
+        * step2: generates unique ids and the final dataset (without filtering duplicated files)
 
-First run the minified option and then the duplicated option.
+
+First run the step1 option and then the step2 option.
 
 
 If process_option is minified:

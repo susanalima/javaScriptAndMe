@@ -1,6 +1,7 @@
 #!/bin/bash
-OPTION=${1:-"minified"}
-SECOND_OPTION=${2:-"Default"}
+OPTION=${1:-"step1"}
+SECOND_OPTION=${2:-"true"}
+THIRD_OPTION=${3:-"Default"}
 
 
 MOUNT_FOLDER=${PWD%/*};
@@ -13,4 +14,4 @@ docker run -v $INPUT:/app/input \
 -v $LOGS:/app/logs \
 -v $OUTPUT:/app/output \
 -v $GLOBALS:/app/globals \
-process /bin/bash -c "node /app/filterDuplicated.js $OPTION $SECOND_OPTION"
+process /bin/bash -c "node /app/filterDuplicated.js $OPTION $SECOND_OPTION $THIRD_OPTION"

@@ -34,7 +34,9 @@ function process_input(fileDir, fileSize, hash, folder){
  * @param {*} threshold value for the maximum duplicated score value accepted
  * @param {*} processedFiles List containing the files already processed
  */
-function filterDuplicated(filesToProcess, hashFiles, threshold, processedFiles){
+function filterDuplicated(filesToProcess, hashFiles, threshold, filterDup, processedFiles){
+
+    filterDup = filterDup === "true"
 
     filesToProcess = filesToProcess.reverse()
     hashFiles = hashFiles.reverse()
@@ -45,7 +47,7 @@ function filterDuplicated(filesToProcess, hashFiles, threshold, processedFiles){
         if(!processedFiles.includes(file)){
             console.log(file)
             try {
-                if(index < filesToProcess.length - 1)
+                if(index < filesToProcess.length - 1 && filterDup)
                     Utils.check_duplicates(hash, hashFiles.slice(index+1, hashFiles.length), filesToProcess.slice(index+1, filesToProcess.lengths),threshold)
                 const stats = fs.statSync(file);
                 const fileSize = stats.size / globals.BYTE_TO_KILOBYTE;
@@ -104,22 +106,27 @@ function get_files_to_process(directory, filesToProcess, processedDirs, processe
  * @param {*} step Increment (to the next file)
  * @param {*} timeout Max time the child process (responsible for processing the file) can run
  */
-function filterMinified_exec(index, filesToProcess, step, timeout) {
+function filterMinified_exec(index, filesToProcess, step, filterMin, timeout) {
+
+
             
     if(index >= filesToProcess.length)
         return
 
+ 
 
     const file = filesToProcess[index]
-    const cmd = `node ./filterMinified.js ${file}`
+    const cmd = `node ./filterMinified.js ${file} ${filterMin}`
 
+  
+  
     exec(cmd, {timeout: timeout},
         (error, stdout, stderr) => { 
             if (error !== null) { //exec failed
                 const logData = Utils.build_logs_log_data_on_failure(file, "unknown", "unknown", error);
                 Utils.write_to_logs_log_file(logData)          
             }
-            filterMinified_exec(index+step, filesToProcess, step, timeout)
+            filterMinified_exec(index+step, filesToProcess, step, filterMin,  timeout)
         });
 }
 
@@ -132,13 +139,13 @@ function filterMinified_exec(index, filesToProcess, step, timeout) {
  * @param {*} processedFiles files already processed
  * @param {*} step Increment (to the next file)
  */
-function filterMinified(directory, folder, processedFiles, step=5){
+function filterMinified(directory, folder, processedFiles, filterMin,  step=5){
     const processedDirs = Utils.get_processed_dirs();
     const dir = directory + folder
     let filesToProcess = []
     get_files_to_process( dir, filesToProcess, processedDirs, processedFiles)
     for (let i = 0; i < step; i++) {
-        filterMinified_exec(i, filesToProcess, step, 5*60000)
+        filterMinified_exec(i, filesToProcess, step, filterMin, 5*60000)
     }
 }
 
@@ -180,26 +187,29 @@ try {
 
 
 
-    if (firstOption === "minified"){
-        let inputFolder = args[1]
+    if (firstOption === "step1"){
+        let inputFolder = args[2]
+        let filterMin = args[1]
         if(inputFolder === "Default")
             inputFolder=""
-        
         const excludeFiles = processedFiles.concat(filteredFiles)
-        filterMinified(globals.PROCESS_INPUT_DIR, inputFolder, excludeFiles)
+        filterMinified(globals.PROCESS_INPUT_DIR, inputFolder, excludeFiles, filterMin)
 
     } else {
-        if (firstOption === "duplicated") {
+        if (firstOption === "step2") {
 
             const hashFiles = preLogs.map(function(e) { 
                 return e.split(" - ")[1]
             });
 
-            if (args[1] === "Default")
-                args[1] = "40"
+            let score = args[2]
+            let filterDup = args[1]
+
+            if (score === "Default")
+                score = "40"
             
 
-            filterDuplicated(filteredFiles, hashFiles, args[1], processedFiles)
+            filterDuplicated(filteredFiles, hashFiles, score,  filterDup, processedFiles)
         }
         else {
             console.log("Unknown option. Should use \"minified\" or \"duplicated\"")

@@ -15,7 +15,7 @@ const Utils = require("./utils")
 function filterMinified(input, absolute){
     const fileName = path.basename(absolute)
     try {
-        Utils.check_transformed(fileName, input)
+        filterMin && Utils.check_transformed(fileName, input)
         const hash = Utils.compute_hash(input, Utils.esprima_minify)
         const logData =  absolute + " - " + hash + "\n"
         Utils.write_to_pre_log_file(logData)
@@ -29,9 +29,11 @@ function filterMinified(input, absolute){
 
 
 let absolute=""
+let filterMin = true
 try {
     const args = process.argv.slice(2);
     absolute = args[0]
+    filterMin = args[1] === "true";
     const input = fs.readFileSync(absolute, "utf-8");
     filterMinified(input, absolute)
 } catch (error) {   
