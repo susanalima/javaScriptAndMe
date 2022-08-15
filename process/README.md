@@ -81,11 +81,11 @@ run:
 First run the step1 option and then the step2 option.
 
 
-If process_option is minified:
+If process_option is step1:
 * logs.txt in process/logs contains the logs of files that were filter because they were consider to be minified or obfuscated, or had parsing errors
 * pre_logs.txt contains the rest of the files and their corresponding hash values
 
-If process_option is duplicated:
+If process_option is step2:
 * logs.txt contains all logs for all files, filtered or not. Files that were not filtered are given a new name that is also present in the logs for full traceability
 * all files kept are renamed and stored in process/output
 
@@ -110,7 +110,12 @@ clean input, output and logs: `./scripts/clean.sh`
 │   ├── scripts
 ```
 
-_globals_ - This folder contains a file with the global variales used in the project.
+_globals_ - This folder contains a file with the global variales used in the project. This includes the following thresholds that can be configured:
+ * `PERCENTAGE_OF_INDENTATION_CHARACTERS_THRESHOLD` (defaults to 1): If a file has less than `PERCENTAGE_OF_INDENTATION_CHARACTERS_THRESHOLD` % of indentation characters it is considered to be minified.
+ * `CHARACTERS_PER_LINE_THRESHOLD` (defaults to 100): If a file as on average, more than `CHARACTERS_PER_LINE_THRESHOLD` characters per line it is considered to be minified.
+ * `PERCENTAGE_OF_LONG_LINES_THRESHOLD` (defaults to 10) and `NUMBER_CHARACTERS_THRESHOLD` (defaults to 240): If a file has more than `PERCENTAGE_OF_LONG_LINES_THRESHOLD` % of all lines has more than `NUMBER_CHARACTERS_THRESHOLD` characters it is considered to be minified.
+ * `DUPLICATED_THRESHOLD` (defaults to 40): If the similarity score of two files is `DUPLICATED_THRESHOLD` % the files are considered to be duplicates.
+
 
 _input_ - Just as the name implies, this folder houses the input files for the program.
 

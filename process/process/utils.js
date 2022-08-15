@@ -199,7 +199,7 @@ function get_number_indentation_characters(input){
  * @param {*} input String of code
  * @param {*} linesThreshold Threshold to exclude the file based on the line length
  */
-function check_transformed(fileName, input, linesThreshold=240){
+function check_transformed(fileName, input, linesThreshold=globals.NUMBER_CHARACTERS_THRESHOLD){
     const checkMinRegex = /.*\.min\.js/
     const count = (fileName.match(checkMinRegex) || []).length;
     
@@ -217,8 +217,8 @@ function check_transformed(fileName, input, linesThreshold=240){
     const indentCharPercentage = nrIndentationC / nrC * 100
 
     // if there are less than 1% of indentation characters
-    if (nrIndentationC / nrC * 100 <= 1)
-        throw new Error(`File may be minified or obfuscated: ${Math.round(indentCharPercentage*100)/100}% of indentation characters (less or equal to 1%)`)    
+    if (nrIndentationC / nrC * 100 <= globals.PERCENTAGE_OF_INDENTATION_CHARACTERS_THRESHOLD)
+        throw new Error(`File may be minified or obfuscated: ${Math.round(indentCharPercentage*100)/100}% of indentation characters (less or equal to ${globals.PERCENTAGE_OF_INDENTATION_CHARACTERS_THRESHOLD}%)`)    
     
     const lines = input.split(/\r?\n/)
 
@@ -227,16 +227,16 @@ function check_transformed(fileName, input, linesThreshold=240){
     const averageNrCharLine = nrC / nrLines
 
     // if there are more than 100 characteres per line
-    if (averageNrCharLine > 100) //recommended 80 characteres per line 
-        throw new Error(`File may be minified or obfuscated: average of ${Math.round(averageNrCharLine*100)/100} characters per line (more than 100 characteres)`)    
+    if (averageNrCharLine > globals.CHARACTERS_PER_LINE_THRESHOLD) //recommended 80 characteres per line 
+        throw new Error(`File may be minified or obfuscated: average of ${Math.round(averageNrCharLine*100)/100} characters per line (more than ${globals.CHARACTERS_PER_LINE_THRESHOLD} characteres)`)    
     
     const longLines = lines.filter(elem => {
         return (elem.length >= linesThreshold)
     })
 
     const longLinesPercentage = longLines.length / nrLines * 100
-    if ( longLinesPercentage > 10)
-        throw new Error(`File may be minified or obfuscated: ${Math.round(longLinesPercentage*100)/100}% of lines have more than ${linesThreshold} characters (at least 10%)`)    
+    if ( longLinesPercentage > globals.PERCENTAGE_OF_LONG_LINES_THRESHOLD)
+        throw new Error(`File may be minified or obfuscated: ${Math.round(longLinesPercentage*100)/100}% of lines have more than ${linesThreshold} characters (at least ${globals.PERCENTAGE_OF_LONG_LINES_THRESHOLD}%)`)    
 }
 
 /**
@@ -321,7 +321,7 @@ function get_similarity_score(hash1, hash2){
  * @param {*} filesToProcess Files to be processed
  * @param {*} threshold Threshold for similarity score
  */
-function check_duplicates(hash, hashFiles, filesToProcess, threshold=40){
+function check_duplicates(hash, hashFiles, filesToProcess, threshold=globals.DUPLICATED_THRESHOLD){
     let dupHash = undefined
     let dupScore = 0
     let index = 0;
